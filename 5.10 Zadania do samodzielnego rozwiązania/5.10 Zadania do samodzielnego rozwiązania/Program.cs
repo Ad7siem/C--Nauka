@@ -82,6 +82,43 @@ namespace _5._10_Zadania_do_samodzielnego_rozwiązania
             }
             Console.WriteLine(W);
         }
+        static void SumaCyfrLiczbyNaturalnej (string x)
+        {
+            int suma = 0;
+            for (int i = 0; i < x.Length; i++)
+            {
+                Console.WriteLine("{0} + {1} = {2}", suma, x[i], suma + x[i] - 48);
+                suma += x[i]-48;
+            }
+            Console.WriteLine("Wartosc cyfr liczby {0} wynosi = {1}", x, suma);
+            // nie rozumiem dlaczego musialem odjac 48; z jakiej okazji wychodzila taka suma.
+        }
+        static int Fibonacci(int n)
+        {
+            if (n <= 1) return n;
+            else return Fibonacci(n - 1) + Fibonacci(n - 2);
+        }
+        static void FibonacciV(int v)
+        {
+            int[] F = new int[v];
+            for(int i = 0; i < v; i++)
+            {
+                if (i == 0 || i == 1)
+                {
+                    F[i] = 1;
+                }
+                else
+                {
+                    F[i] = F[i - 1] + F[i - 2];
+                }
+            }
+            Console.WriteLine(F[v-1]);
+        }
+        static int Oblicz(int n)
+        {
+            if (n <= 1) return (1);
+            else return (n + Oblicz(n - 1));
+        }
 
         static void Main(string[] args)
         {
@@ -172,6 +209,18 @@ namespace _5._10_Zadania_do_samodzielnego_rozwiązania
             W_5_7(x5_7, n5_7);
 
             Console.WriteLine("\n\tZadanie 5.8\n");
+            Console.WriteLine("Podaj liczbe:");
+            string liczba = Console.ReadLine();
+            SumaCyfrLiczbyNaturalnej(liczba);
+            
+            Console.WriteLine("\n\tZadanie 5.9\n");
+            Console.WriteLine("Podaj n-ty wyraz ciągu Fibonacciego");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine("{0}", Fibonacci(n));
+            FibonacciV(n);
+
+            Console.WriteLine("\n\tZadanie 5.10\n");
+            Console.WriteLine(Oblicz(5));
 
             Console.ReadKey();
         }
