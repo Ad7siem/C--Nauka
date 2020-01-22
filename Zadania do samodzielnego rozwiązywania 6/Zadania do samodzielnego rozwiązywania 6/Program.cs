@@ -32,11 +32,22 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("\tZadanie 1\n");
             Prostokat p1 = new Prostokat(2,3);
             p1.Prezentuj();
             Prostokat p2;
             p2 = new Prostokat(4, 6);
             p2.Prezentuj();
+
+            Console.WriteLine("\n\tZadanie 2\n");
+            Prostokat[] tab = new Prostokat[3];
+            tab[0] = new Prostokat (2, 6);
+            tab[1] = new Prostokat(3, 8);
+            tab[2] = new Prostokat(2, 4);
+            foreach(Prostokat p in tab)
+            {
+                p.Prezentuj();
+            }
             Console.ReadKey();
         }
     }
