@@ -18,6 +18,10 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
         {
             return (dlugosc * szerokosc);
         }
+        public int Powierzchnia()
+        {
+            return powierzchnia();
+        }
         public Prostokat(int dl, int sze)
         {
             dlugosc = dl;
@@ -38,16 +42,15 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
         public static void NajwiekszyProstokat(Prostokat[] tab)
         {
             int najwiekszy = 0;
-            int pole;
             for(int i = 0; i < tab.Length; i++)
             {
-                pole = 2 * 4;
-                if (pole > najwiekszy)
+                var polex = tab[i].Powierzchnia();
+                if (polex > najwiekszy)
                 {
-                    najwiekszy = pole;
+                    najwiekszy = polex;
                 }
             }
-            
+            Console.WriteLine("Największy prostokąt ma pole o wartosci: {0}", najwiekszy);
         }
     }
     class Energia
@@ -68,6 +71,65 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
             Console.WriteLine("Zużyto {0} energii", StanAktualny - StanPoczatkowy);
         }
 
+    }
+    class Punkt
+    {
+        public double Punkty_x { get; set; }
+        public double Punkty_y { get; set; }
+        public Punkt(double x, double y)
+        {
+            Punkty_x = x;
+            Punkty_y = y;
+        }
+        public void Przesun(double przesun_x, double przesun_y)
+        {
+            Punkty_x += przesun_x;
+            Punkty_y += przesun_y;
+        }
+        public void Wyswietl()
+        {
+            Console.WriteLine("{0}, {1}", Punkty_x, Punkty_y);
+        }
+        public static bool CzyLezy(Punkt[] tab)
+        {
+            double e1, e2, e3 = 0;
+            e1 = Math.Sqrt(Math.Pow(tab[0].Punkty_x - tab[1].Punkty_x, 2) + Math.Pow(tab[0].Punkty_y - tab[1].Punkty_y, 2));
+            e2 = Math.Sqrt(Math.Pow(tab[1].Punkty_x - tab[2].Punkty_x, 2) + Math.Pow(tab[1].Punkty_y - tab[2].Punkty_y, 2));
+            e3 = Math.Sqrt(Math.Pow(tab[2].Punkty_x - tab[0].Punkty_x, 2) + Math.Pow(tab[2].Punkty_y - tab[0].Punkty_y, 2));
+            //if (e1 > e2 && e1 > e3)
+            //{
+            //    if (e1 == e2 + e3)
+            //    {
+            //        return true;
+            //    }
+            //}
+            //else if (e2 > e3 && e2 > e1)
+            //{
+            //    if (e2 == e1 + e3)
+            //    {
+            //        return true;
+            //    }
+            //}
+            //else if (e3 > e1 && e3 > e2)
+            //{
+            //    if (e3 == e1 + e2)
+            //    {
+            //        return true;
+            //    }
+            //}
+            //if ((e1 > e2 && e1 > e3) 
+            //    || (e2 > e3 && e2 > e1) 
+            //    || (e3 > e1 && e3 > e2))
+            //{
+                if((e1 == e2 + e3) 
+                    || (e2 == e1 + e3) 
+                    || (e3 == e1 + e2))
+                    return true;
+            //}
+            //sprawdz, ktory jest najdluzszy
+            //sprawdz czy najdluzszy jest rowny sumie pozostalych
+            return false;
+        }
     }
     class Program
     {
@@ -103,6 +165,8 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
                 p.Prezentuj();
                 //p.Wypisz();
             }
+            Prostokat.NajwiekszyProstokat(tab);
+
 
             /*
              * Zadanie 6.4. 
@@ -117,7 +181,28 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
             licznik.Wypisz();
             licznik.zuzyta();
 
+
+            Console.WriteLine("\n\tZadanie 5\n");
+            Punkt pk = new Punkt(2.8, 3.6);
+            pk.Wyswietl();
+            pk.Przesun(3.5, 3.5);
+            pk.Wyswietl();
+
+            Punkt[] tab_pk = new Punkt[3];
+            tab_pk[0] = new Punkt(2.8, 3.6);
+            tab_pk[1] = new Punkt(4.1, 2.9);
+            tab_pk[2] = new Punkt(7.7, 5.3);
+            foreach(Punkt p in tab_pk)
+            {
+                p.Wyswietl();
+            }
+            tab_pk[0] = new Punkt(0, 0);
+            tab_pk[1] = new Punkt(2, 2);
+            tab_pk[2] = new Punkt(1, 1);
+            Console.WriteLine("{0}", Punkt.CzyLezy(tab_pk));
+
             Console.ReadKey();
+
         }
     }
 }
