@@ -204,8 +204,8 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
             tab_pk[2] = new Punkt(1, 1);
             Console.WriteLine("{0}", Punkt.CzyLezy(tab_pk));
 
-            Console.ReadKey();
 
+            Console.ReadKey();
         }
     }
 }
