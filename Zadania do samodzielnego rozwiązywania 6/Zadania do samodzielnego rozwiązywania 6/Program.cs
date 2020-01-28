@@ -188,6 +188,7 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
             pk.Przesun(3.5, 3.5);
             pk.Wyswietl();
 
+            Console.WriteLine("\n\tZadanie 6\n");
             Punkt[] tab_pk = new Punkt[3];
             tab_pk[0] = new Punkt(2.8, 3.6);
             tab_pk[1] = new Punkt(4.1, 2.9);
@@ -196,6 +197,8 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
             {
                 p.Wyswietl();
             }
+
+            Console.WriteLine("\n\tZadanie 7\n");
             tab_pk[0] = new Punkt(0, 0);
             tab_pk[1] = new Punkt(2, 2);
             tab_pk[2] = new Punkt(1, 1);
