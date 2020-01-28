@@ -227,6 +227,20 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
                 return tab[0].Objetosc() > tab[1].Objetosc();
             return false;
         }
+    }    
+    struct KandydatNaStudia
+    {
+        public string nazwisko;
+        public int punktyMatematyka;
+        public int punktyInformatyka;
+        public int punktyJezykObcy;
+
+        public static double lacznaLiczbaPunktow (double Mat, double Inf, double Obcy)
+        {
+            double wynik;
+            wynik = (Mat * 0.6) + (Inf * 0.5) + (Obcy * 0.2);
+            return wynik;
+        }
     }
     class Program
     {
@@ -390,7 +404,31 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
 
             Console.WriteLine("\n\tZadanie 10\n");
 
-
+            KandydatNaStudia Kandydat1;
+            Kandydat1.nazwisko = "Wielmożny";
+            Kandydat1.punktyMatematyka = 60;
+            Kandydat1.punktyInformatyka = 67;
+            Kandydat1.punktyJezykObcy = 50;
+            Console.WriteLine("Co wiemy o kandydacie? \n Nazwisko: {0} \n Punkty z Matematyki: {1} \n Punkty z Infomratyki: {2} \n Punkty z Języków obcych: {3}", Kandydat1.nazwisko, Kandydat1.punktyMatematyka, Kandydat1.punktyInformatyka, Kandydat1.punktyJezykObcy);
+            Console.WriteLine("{0}", KandydatNaStudia.lacznaLiczbaPunktow(Kandydat1.punktyMatematyka, Kandydat1.punktyInformatyka, Kandydat1.punktyJezykObcy));
+            KandydatNaStudia[] Kandydat = new KandydatNaStudia[3];
+            Kandydat[0].nazwisko = "Kowalski";
+            Kandydat[0].punktyMatematyka = 60;
+            Kandydat[0].punktyInformatyka = 72;
+            Kandydat[0].punktyJezykObcy = 59;
+            Kandydat[1].nazwisko = "Roko";
+            Kandydat[1].punktyMatematyka = 90;
+            Kandydat[1].punktyInformatyka = 88;
+            Kandydat[1].punktyJezykObcy = 95;
+            Kandydat[2].nazwisko = "Nowak";
+            Kandydat[2].punktyMatematyka = 81;
+            Kandydat[2].punktyInformatyka = 67;
+            Kandydat[2].punktyJezykObcy = 49;
+            foreach(KandydatNaStudia k in Kandydat)
+            {
+                Console.WriteLine("\nNazwisko: {0}\nPunkty z Matematyki: {1}\nPunkty z Informatyki: {2}\nPunkty z jezyka obcego: {3}", k.nazwisko, k.punktyMatematyka, k.punktyInformatyka, k.punktyJezykObcy);
+                Console.WriteLine("Łączna liczba punktów kandydata = {0}", KandydatNaStudia.lacznaLiczbaPunktow(k.punktyMatematyka, k.punktyInformatyka, k.punktyJezykObcy));
+            }
 
 
 
