@@ -35,11 +35,50 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
         {
             Console.WriteLine("dlugosc = {0}, szerokosc = {1}", dlugosc, szerokosc);
         }
-        /*
-         * Zadanie 6.3. 
-            Uzupełnij program z poprzedniego zadania o definicję metody statycznej, która podaje powierzchnię największego prostokąta.
-         */
         public static void NajwiekszyProstokat(Prostokat[] tab)
+        {
+            int najwiekszy = 0;
+            for (int i = 0; i < tab.Length; i++)
+            {
+                var polex = tab[i].Powierzchnia();
+                if (polex > najwiekszy)
+                {
+                    najwiekszy = polex;
+                }
+            }
+            Console.WriteLine("Największy prostokąt ma pole o wartosci: {0}", najwiekszy);
+        }
+    }
+    struct ProstokatStruct
+    {
+        private int dlugosc { get; set; }
+        private int szerokosc { get; set; }
+        private int obwod()
+        {
+            return (2 * dlugosc) + (2 * szerokosc);
+        }
+        private int powierzchnia()
+        {
+            return (dlugosc * szerokosc);
+        }
+        public int Powierzchnia()
+        {
+            return powierzchnia();
+        }
+        public ProstokatStruct(int dl, int sze)
+        {
+            dlugosc = dl;
+            szerokosc = sze;
+        }
+        public void Prezentuj()
+        {
+            Console.WriteLine("Obwód prostokąta wynosi {0, 4}, a powierzchnia wynosi {1, 4}", obwod(), powierzchnia());
+        }
+        public void Wypisz()
+        {
+            Console.WriteLine("dlugosc = {0}, szerokosc = {1}", dlugosc, szerokosc);
+        }
+        public static void NajwiekszyProstokat(ProstokatStruct[] tab)
         {
             int najwiekszy = 0;
             for (int i = 0; i < tab.Length; i++)
@@ -158,6 +197,37 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
             Console.WriteLine(Math.Sqrt((Math.Pow(a.Punkty_x - b.Punkty_x, 2)) + (Math.Pow(a.Punkty_y - b.Punkty_y, 2))));
         }
     }
+    class Prostopadloscian
+    {
+        public double szerokosc { get; set; }
+        public double dlugosc { get; set; }
+        public double wysokosc { get; set; }
+        public Prostopadloscian(double a, double b, double h)
+        {
+            szerokosc = a;
+            dlugosc = b;
+            wysokosc = h;
+        }
+        public double Objetosc ()
+        {
+            double poleProstopadloscianu = 0;
+            poleProstopadloscianu = szerokosc * dlugosc * wysokosc;
+            return poleProstopadloscianu;
+        }
+        public void Porownanie(Prostopadloscian[] tab)
+        {
+            if (tab[0].Objetosc() > tab[1].Objetosc()) Console.WriteLine("Pierwszy prostopadloscian jest wiekszy od drugiego");
+            else if (tab[0].Objetosc() < tab[1].Objetosc()) Console.WriteLine("Pierwszy prostopadloscian jest mniejszy od drugiego");
+            else Console.WriteLine("Oba prostopadlosciany sa sobie rowne");
+            Console.WriteLine("{0}, {1}", tab[0].Objetosc(), tab[1].Objetosc());
+        }
+        public static bool PorownanieBool(Prostopadloscian[] tab)
+        {
+            if (tab[0].Objetosc() > tab[1].Objetosc()) 
+                return tab[0].Objetosc() > tab[1].Objetosc();
+            return false;
+        }
+    }
     class Program
     {
         static void Main(string[] args)
@@ -265,13 +335,60 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
             Console.WriteLine("{0}", odk.DlugoscOdcinka(pkt1, pkt2));
 
 
+            /*
+             * Zadanie 6.8. 
+                Zdefiniuj klasę Prostopadloscian, która pozwoli na reprezentację danych opisujących 
+                długość, szerokość i wysokość prostopadłościanu. W klasie zaimplementuj metody 
+                pozwalające na obliczenie objętości prostopadłościanu, oraz porównanie objętości dwóch 
+                prostopadłościanów. 
+             */
 
+            Console.WriteLine("\n\tZadanie 8\n");
+            Prostopadloscian Pro = new Prostopadloscian(3, 5, 7);
+            Console.WriteLine("{0}", Pro.Objetosc());
+            Prostopadloscian[] tabPro = new Prostopadloscian[2];
+            tabPro[0] = new Prostopadloscian(2, 5, 6);
+            tabPro[1] = new Prostopadloscian(2, 5, 6);
+            tabPro[1].Porownanie(tabPro);
+            Console.WriteLine("Czy pierwszy prostopadloscian jest wiekszy od drugieg? \n{0}", Prostopadloscian.PorownanieBool(tabPro));
 
+            /*
+             * Zadanie 6.9. 
+                Wykonaj zadania 6.1 oraz 6.2 z użyciem struktury (zamiast klasy).
+             */
 
+            Console.WriteLine("\tZadanie 9\n");
+            ProstokatStruct p1stru = new ProstokatStruct(2, 3);
+            p1stru.Prezentuj();
+            ProstokatStruct p2Stru;
+            p2Stru = new ProstokatStruct(4, 6);
+            p2Stru.Prezentuj();
+            Console.WriteLine();
+            ProstokatStruct[] tabStru = new ProstokatStruct[3];
+            tabStru[0] = new ProstokatStruct(2, 6);
+            tabStru[1] = new ProstokatStruct(3, 8);
+            tabStru[2] = new ProstokatStruct(2, 4);
+            foreach (ProstokatStruct p in tabStru)
+            {
+                p.Prezentuj();
+                //p.Wypisz();
+            }
 
+            /*
+             * Zadanie 6.10. 
+                Napisz program z użyciem struktury KandydatNaStudia, która ma posiadać następujące  
+                pola: nazwisko, punktyMatematyka, punktyInformatyka, punktyJezykObcy. W trzech ostatnich 
+                polach mają być zapisane punkty za przedmioty zdawane na maturze (dla uproszczenia 
+                uwzględniamy tylko jeden poziom zdawanej matury, np. podstawowy). Jeden punkt to jeden 
+                procent (tj. student, który ma 55% z matematyki ma mieć 55 punktów z tego przedmiotu). 
+                Struktura ma posiadać metodę obliczającą łączną liczbę punktów kandydata według 
+                przelicznika: 0,6 punktów z matematyki + 0,5 punktów z informatyki + 0,2 punktów z języka 
+                obcego. W metodzie Main() utwórz obiekty dla struktury (jako elementy tablicy) dla kilku 
+                kandydatów i pokaż listę kandydatów, zawierającą nazwisko i obok, w tej samej linii, 
+                obliczoną łączną liczbę punktów.
+             */
 
-
-
+            Console.WriteLine("\n\tZadanie 10\n");
 
 
 
