@@ -92,36 +92,38 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
         }
         public static bool CzyLezy(Punkt[] tab)
         {
-            double e1, e2, e3 = 0;
+            double e1, e2, e3;
             e1 = Math.Sqrt(Math.Pow(tab[0].Punkty_x - tab[1].Punkty_x, 2) + Math.Pow(tab[0].Punkty_y - tab[1].Punkty_y, 2));
             e2 = Math.Sqrt(Math.Pow(tab[1].Punkty_x - tab[2].Punkty_x, 2) + Math.Pow(tab[1].Punkty_y - tab[2].Punkty_y, 2));
             e3 = Math.Sqrt(Math.Pow(tab[2].Punkty_x - tab[0].Punkty_x, 2) + Math.Pow(tab[2].Punkty_y - tab[0].Punkty_y, 2));
-            //if (e1 > e2 && e1 > e3)
-            //{
-            //    if (e1 == e2 + e3)
-            //    {
-            //        return true;
-            //    }
-            //}
-            //else if (e2 > e3 && e2 > e1)
-            //{
-            //    if (e2 == e1 + e3)
-            //    {
-            //        return true;
-            //    }
-            //}
-            //else if (e3 > e1 && e3 > e2)
-            //{
-            //    if (e3 == e1 + e2)
-            //    {
-            //        return true;
-            //    }
-            //}
-            //if ((e1 > e2 && e1 > e3) 
-            //    || (e2 > e3 && e2 > e1) 
-            //    || (e3 > e1 && e3 > e2))
-            //{
-            if ((e1 == e2 + e3)
+            /*
+            if (e1 > e2 && e1 > e3)
+            {
+                if (e1 == e2 + e3)
+                {
+                    return true;
+                }
+            }
+            else if (e2 > e3 && e2 > e1)
+            {
+                if (e2 == e1 + e3)
+                {
+                    return true;
+                }
+            }
+            else if (e3 > e1 && e3 > e2)
+            {
+                if (e3 == e1 + e2)
+                {
+                    return true;
+                }
+            }
+            if ((e1 > e2 && e1 > e3)
+                || (e2 > e3 && e2 > e1)
+                || (e3 > e1 && e3 > e2))
+            {
+            */
+                if ((e1 == e2 + e3)
                 || (e2 == e1 + e3)
                 || (e3 == e1 + e2))
                 return true;
@@ -129,6 +131,31 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
             //sprawdz, ktory jest najdluzszy
             //sprawdz czy najdluzszy jest rowny sumie pozostalych
             return false;
+        }
+    }
+    class Odcinek
+    {
+        public Punkt punkt_a { get; set; }
+        public Punkt punkt_b { get; set; }
+        public Odcinek(Punkt x, Punkt y)
+        {
+            punkt_a = x;
+            punkt_b = y;
+        }
+        public double DlugoscOdcinka(Punkt a, Punkt b)
+        {
+            double odcinek;
+            odcinek = Math.Sqrt((Math.Pow((a.Punkty_x - b.Punkty_x), 2)) + (Math.Pow((a.Punkty_y - b.Punkty_y), 2)));
+            return odcinek;
+        }
+        public void Wyswietl(Punkt x)
+        {
+            Console.WriteLine("{0}, {1}", x.Punkty_x, x.Punkty_y);
+        }
+        public void obliczanie(Punkt a, Punkt b)
+        {
+            Console.Write("{0} + {1} = ", Math.Pow(a.Punkty_x - b.Punkty_x, 2), Math.Pow(a.Punkty_y - b.Punkty_y, 2));
+            Console.WriteLine(Math.Sqrt((Math.Pow(a.Punkty_x - b.Punkty_x, 2)) + (Math.Pow(a.Punkty_y - b.Punkty_y, 2))));
         }
     }
     class Program
@@ -165,6 +192,8 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
                 p.Prezentuj();
                 //p.Wypisz();
             }
+
+            Console.WriteLine("\n\tZadanie 3\n");
             Prostokat.NajwiekszyProstokat(tab);
 
 
@@ -181,12 +210,28 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
             licznik.Wypisz();
             licznik.zuzyta();
 
+            /*
+             * Zadanie 6.5. 
+                Napisz program tworzący klasę Punkt do obsługi punktów na płaszczyźnie. Klasa ta ma 
+                zawierać: konstruktor, którego argumentami będą współrzędne punktu, metodę składową 
+                Przesun(), realizującą przesunięcie o zadane wielkości oraz metodę składową Wyswietl() 
+                wypisującą aktualne współrzędne punktu. Współrzędne punktu mają być zdefiniowane 
+                poprzez właściwości. 
+             */
 
             Console.WriteLine("\n\tZadanie 5\n");
             Punkt pk = new Punkt(2.8, 3.6);
             pk.Wyswietl();
             pk.Przesun(3.5, 3.5);
+            Console.WriteLine("Punkty zostały przesunięte");
             pk.Wyswietl();
+
+            /*
+             * Zadanie 6.6. 
+                Napisz program (używając klasy Punkt zdefiniowanej w poprzednim zadaniu), który 
+                przechowuje dane o trzech punktach w tablicy obiektów i sprawdza przy pomocy statycznej 
+                metody, czy leżą one na jednej prostej.  
+             */
 
             Console.WriteLine("\n\tZadanie 6\n");
             Punkt[] tab_pk = new Punkt[3];
@@ -197,12 +242,48 @@ namespace Zadania_do_samodzielnego_rozwiązywania_6
             {
                 p.Wyswietl();
             }
-
-            Console.WriteLine("\n\tZadanie 7\n");
+            /*
             tab_pk[0] = new Punkt(0, 0);
             tab_pk[1] = new Punkt(2, 2);
             tab_pk[2] = new Punkt(1, 1);
-            Console.WriteLine("{0}", Punkt.CzyLezy(tab_pk));
+            */
+            Console.WriteLine("Czy leżą one na jednej prostej? \n{0}", Punkt.CzyLezy(tab_pk));
+
+            /*
+             * Zadanie 6.7. 
+                Zdefiniuj klasę Odcinek składającą się z dwóch punktów klasy Punkt. W klasie Odcinek 
+                zdefiniuj metodę, która obliczy długość odcinka. 
+             */
+
+            Console.WriteLine("\n\tZadanie 7\n");
+            Punkt pkt1 = new Punkt(2.4, 3.9);
+            Punkt pkt2 = new Punkt(9.7, 4.3);
+            Odcinek odk = new Odcinek(pkt1, pkt2);
+            odk.Wyswietl(pkt1);
+            odk.Wyswietl(pkt2);
+            odk.obliczanie(pkt1, pkt2);
+            Console.WriteLine("{0}", odk.DlugoscOdcinka(pkt1, pkt2));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             Console.ReadKey();
