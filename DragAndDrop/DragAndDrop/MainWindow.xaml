@@ -14,7 +14,10 @@
         </Grid.ColumnDefinitions>
         <ListBox Grid.Column="0" 
                  PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown"
-                 AllowDrop="True" DragEnter="ListBox_DragEnter">
+                 MouseMove="ListBox_MouseMove"
+                 AllowDrop="True" DragEnter="ListBox_DragEnter"
+                 Drop="ListBox_Drop"
+                 SelectionMode ="Multiple">
             <ListBoxItem>Lista 1, element 1</ListBoxItem>
             <ListBoxItem>Lista 1, element 2</ListBoxItem>
             <ListBoxItem>Lista 1, element 3</ListBoxItem>
@@ -24,7 +27,10 @@
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"/>
         <ListBox Grid.Column="2"
                  PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown"
-                 AllowDrop="True" DragEnter="ListBox_DragEnter">
+                 MouseMove="ListBox_MouseMove"
+                 AllowDrop="True" DragEnter="ListBox_DragEnter"
+                 Drop="ListBox_Drop"
+                 SelectionMode="Multiple">
             <ListBoxItem>Lista 1, element 1</ListBoxItem>
             <ListBoxItem>Lista 2, element 1</ListBoxItem>
             <ListBoxItem>Lista 3, element 1</ListBoxItem>
