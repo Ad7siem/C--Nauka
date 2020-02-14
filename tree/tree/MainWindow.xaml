@@ -20,7 +20,7 @@
     </Window.Resources>
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="choinka.jpg" />
+            <ImageBrush ImageSource="choinka.JPG" />
         </Grid.Background>
     </Grid>
 </Window>

@@ -4,12 +4,12 @@ using System.Windows.Forms;
 
 namespace tree
 {
-    public class iconInTheTray
+    public class IconInTheTray
     {
         private NotifyIcon notifyIcon;
         private System.Windows.Window window;
 
-        public iconInTheTray(System.Windows.Window window)
+        public IconInTheTray(System.Windows.Window window)
         {
             //ikona
             string nameIcon = "choinka.ico";
@@ -94,4 +94,6 @@ namespace tree
             notifyIcon = null;
         }
     }
+
 }
+
