@@ -6,20 +6,28 @@ namespace kalkulator
     {
         static void Main(string[] args)
         {
-            string or = "T";
+            Console.WriteLine(
+                "#####################\n" +
+                "## Suma        = + ##\n" +
+                "## Różnica     = - ##\n" +
+                "## Iloczyn     = * ##\n" +
+                "## Iloraz      = / ##\n" +
+                "## Potęga      = ^ ##\n" +
+                "## Pierwiastek = % ##\n" +
+                "#####################\n"
+                );
+            string sign = null, or = "T";
+            double first = 0, second = 0;
             do
             {
-                Console.Write("Podaj pierwszą liczbę: ");
-                double first = double.Parse(Console.ReadLine());
-                Console.Write("Podaj drugą liczbę: ");
-                double second = double.Parse(Console.ReadLine());
-                Console.Write("Podaj znak matematyczny: ");
-                string sign = Console.ReadLine();
                 calculator k = new calculator(first, second, sign);
-                Console.WriteLine("{1} {3} {2} = {0}", calculator.Result(k), k.first, k.second, k.sign);
+                k.Data();
+                calculator.View(k);
                 Console.Write("Czy kontynuować?(T/N): ");
                 or = Console.ReadLine().ToUpper();
+                Console.WriteLine();
             } while (or == "T");
+            
         }
     }
 }
