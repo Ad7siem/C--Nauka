@@ -113,9 +113,17 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <DesignData Include="choinka.ico">
+    <Resource Include="choinka.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </DesignData>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="choinka.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="christmas.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

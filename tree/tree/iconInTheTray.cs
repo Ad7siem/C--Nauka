@@ -12,7 +12,7 @@ namespace tree
         public IconInTheTray(System.Windows.Window window)
         {
             //ikona
-            string nameIcon = "choinka.ico";
+            string nameIcon = "christmas.ico";
             string nameApk = Application.ProductName;
             System.Windows.Resources.StreamResourceInfo sri = System.Windows.Application.GetResourceStream(new Uri(@"/" + nameApk + ";component/" + nameIcon, UriKind.RelativeOrAbsolute));
             Icon icon = new Icon(sri.Stream);

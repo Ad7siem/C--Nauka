@@ -10,12 +10,12 @@ namespace tree
     /// </summary>
     public partial class MainWindow : Window
     {
-        //private IconInTheTray iconInTheTray;
+        private IconInTheTray iconInTheTray;
         public MainWindow()
         {
             InitializeComponent();
 
-            //iconInTheTray = new IconInTheTray(this);
+            iconInTheTray = new IconInTheTray(this);
         }
 
         #region Przenoszenie okna
