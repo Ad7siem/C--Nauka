@@ -13,11 +13,8 @@ namespace ReversiSilnik_TestyJednostkowe
 
         private ReversiSilnik tworzDomyslnySilnik()
         {
-            return new Refersi.ReversiSilnik(numerGraczaRozpoczynajacego, szerokoscPlanszy, wysokoscPlanszy);
+            return new ReversiSilnik(numerGraczaRozpoczynajacego, szerokoscPlanszy, wysokoscPlanszy);
         }
-        [TestMethod]
-        public void TestMethod1()
-        {
-        }
+
     }
 }
