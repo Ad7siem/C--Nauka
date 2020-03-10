@@ -16,5 +16,17 @@ namespace ReversiSilnik_TestyJednostkowe
             return new ReversiSilnik(numerGraczaRozpoczynajacego, szerokoscPlanszy, wysokoscPlanszy);
         }
 
+        [TestMethod]
+        public void TestKonstruktora()
+        {
+            ReversiSilnik silnik = tworzDomyslnySilnik();
+
+            Assert.AreEqual(szerokoscPlanszy, silnik.SzerokoscPlanszy);
+            Assert.AreEqual(wysokoscPlanszy, silnik.WysokoscPlanszy);
+            Assert.AreEqual(numerGraczaRozpoczynajacego, silnik.NumerGraczaRozpoczynajacego);
+        }
+
+        
+
     }
 }
