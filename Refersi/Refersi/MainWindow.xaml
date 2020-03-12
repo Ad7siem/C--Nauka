@@ -6,7 +6,54 @@
         xmlns:local="clr-namespace:Refersi"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Background="Tan">
+            <MenuItem Header="Gra">
+                <MenuItem Header="Nowa gra dla jednego gracza">
+                    <MenuItem Header="Rozpoczyna komputer (brązowy)" Click="MenuItem_NowaGraDlaGracza_RozpoczynaKomputer_Click"/>
+                    <MenuItem Header="Rozpoczynasz Ty (zielony)" Click="MenuItem_NowaGraDlaGracza_Click" />
+                </MenuItem>
+                <MenuItem Header="Nowa gra dla dwóch graczy" Click="MenuItem_NowaGraDla2Graczy_Click" />
+                <Separator/>
+                <MenuItem Header="Zamknij" Click="MenuItem_Zamknij_Click" />
+            </MenuItem>
+            <MenuItem Header="Pomoc">
+                <MenuItem Header="Podpowiedź ruchu" Click="MenuItem_PodpowiedzRuchu_Click" />
+                <MenuItem Header="Ruch wykonany przez komputer" Click="MenuItem_RuchWykonanyPrzezKomputer_Click" />
+                <Separator />
+                <MenuItem Header="Zasady gry" Click="MeniItem_ZasadyGry_Click" />
+                <MenuItem Header="Strategia komputera" Click="MenuItem_StrategiaKomputera_Click" />
+                <Separator />
+                <MenuItem Header="Strona WWW" Click="MenuItem_StronaWWW_Click" />
+                <MenuItem Header="O..." Click="MenuItem_Informacje_Click" />
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="planszaSiatka" Grid.Column="0" Margin="10,10,10,10" Background="Ivory" />
+            <Grid Grid.Column="1" Margin="0,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Button x:Name="przyciskKolorGracza" Margin="10,10,0,0" Grid.Row="0" Width="30" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Click="przyciskKolorGracza_Click" />
+                <TextBlock Grid.Row="1" Grid.Column="0" Margin="10,0,0,0" Foreground="Green" Text="Zielony: ">
+                    <Run x:Name="liczbaPolZielonych" Text="0" />
+                </TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="1" Margin="10,0,0,0" Foreground="Sienna" Text="Brązowy: ">
+                    <Run x:Name="LiczbaPolBrazowych" Text="0" />
+                </TextBlock>
+                <ListBox x:Name="listaRuchowZielony" Grid.Column="0" Grid.Row="2" Margin="10,10,10,10" />
+                <ListBox x:Name="listaRuchowBrazowy" Grid.Column="1" Grid.Row="2" Margin="10,10,10,10" />
+            </Grid>
+        </Grid>
+    </DockPanel>
 </Window>

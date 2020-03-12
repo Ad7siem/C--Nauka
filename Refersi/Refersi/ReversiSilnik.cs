@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Refersi
 {
-    class ReversiSilnik
+    public class ReversiSilnik
     {
         public int SzerokoscPlanszy { get; private set; }
         public int WysokoscPlanszy { get; private set; }
@@ -26,7 +30,7 @@ namespace Refersi
                 throw new Exception("Nieprawidłowe wspórzędne pola");
             return plansza[poziomo, pionowo];
         }
-        private void czyśćPlanszę()
+        private void czyscPlansze()
         {
             for (int i = 0; i < SzerokoscPlanszy; i++)
                 for (int j = 0; j < WysokoscPlanszy; j++)
@@ -47,9 +51,10 @@ namespace Refersi
             WysokoscPlanszy = wysokoscPlanszy;
             plansza = new int[SzerokoscPlanszy, WysokoscPlanszy];
 
-            czyśćPlanszę();
+            czyscPlansze();
 
             NumerGraczaWykonujacegoNastepnyRuch = numerGraczaRozpoczynajacego;
+            obliczLiczbyPol();
         }
 
         private void zmienBiezacegoGracza()
@@ -84,8 +89,8 @@ namespace Refersi
                     bool osiagnietaKrawedzPlanszy = false;
                     do
                     {
-                        j += kierunekPionowo;
                         i += kierunekPoziomo;
+                        j += kierunekPionowo;
                         if (!czyWspolrzednePolaPrawidlowe(i, j))
                             osiagnietaKrawedzPlanszy = true;
                         if (!osiagnietaKrawedzPlanszy)
@@ -100,7 +105,7 @@ namespace Refersi
                     while (!(osiagnietaKrawedzPlanszy || znalezionyKamienGraczaWykonujacegoRuch || znalezionePustePole));
 
                     //sprawdzanie warunków poprawności ruchu
-                    bool polozenieKamieniaJakJestMozliwe = znalezionyKamienPrzeciwnika && znalezionyKamienGraczaWykonujacegoRuch && znalezionePustePole;
+                    bool polozenieKamieniaJakJestMozliwe = znalezionyKamienPrzeciwnika && znalezionyKamienGraczaWykonujacegoRuch && !znalezionePustePole;
 
                     // odwrócenie kamieni w przypadku spelnionego warunku
                     if (polozenieKamieniaJakJestMozliwe)
@@ -119,7 +124,7 @@ namespace Refersi
             // zmiana gracza, jeżeli ruch został wykonany
             if (ilePolPrzyjetych > 0 && !tylkoTekst)
                 zmienBiezacegoGracza();
-
+            obliczLiczbyPol();
             // zmienna ilePolPrzyjetych nie uwzględnia dostawionego kamienie
             return ilePolPrzyjetych;
         }
@@ -133,14 +138,66 @@ namespace Refersi
 
         private void obliczLiczbyPol()
         {
-            for (int i = 0; i < liczbyPol.Length; i++) liczbyPol[i] = 0;
-            for (int i = 0; i < SzerokoscPlanszy; i++)
-                for (int j = 0; j < WysokoscPlanszy; j++)
+            for (int i = 0; i < liczbyPol.Length; ++i) liczbyPol[i] = 0;
+
+            for (int i = 0; i < SzerokoscPlanszy; ++i)
+                for (int j = 0; j < WysokoscPlanszy; ++j)
                     liczbyPol[plansza[i, j]]++;
         }
 
         public int LiczbaPustychPol { get { return liczbyPol[0]; } }
         public int LiczbaPolGracz1 { get { return liczbyPol[1]; } }
         public int LiczbaPolGracz2 { get { return liczbyPol[2]; } }
+
+        private bool czyBiezacyGraczMozeWykonacRuch()
+        {
+            int liczbaPoprawnychPol = 0;
+            for (int i = 0; i < SzerokoscPlanszy; ++i)
+                for (int j = 0; j < WysokoscPlanszy; ++j)
+                    if (plansza[i, j] == 0 && PolozKamien(i, j, true) > 0)
+                        liczbaPoprawnychPol++;
+            return liczbaPoprawnychPol > 0;
+        }
+        public void Pasuj()
+        {
+            if (czyBiezacyGraczMozeWykonacRuch())
+                throw new Exception("Gracz nie może oddać ruchu, jeżeli wykonanie ruchu jest możliwe");
+            zmienBiezacegoGracza();
+        }
+
+        public enum SytuacjaNaPlanszy
+        {
+            RuchJestMozliwy,
+            BiezacyGraczNieMozeWykonacRuchu,
+            ObajGraczeNieMogaWykonacRuchu,
+            WszystkiePolaPlanszySaZajete
+        }
+
+        public SytuacjaNaPlanszy ZbadajSytuacjeNaPlanszy()
+        {
+            if (LiczbaPustychPol == 0) return SytuacjaNaPlanszy.WszystkiePolaPlanszySaZajete;
+
+            // badanie możliwości ruchu bieżącego gracza
+            bool czyMozliwyRuch = czyBiezacyGraczMozeWykonacRuch();
+            if (czyMozliwyRuch) return SytuacjaNaPlanszy.RuchJestMozliwy;
+            else
+            {
+                // badanie możliwości ruchu przeciwnika
+                zmienBiezacegoGracza();
+                bool czyMozliwyRuchOponenta = czyBiezacyGraczMozeWykonacRuch();
+                zmienBiezacegoGracza();
+                if (czyMozliwyRuchOponenta) return SytuacjaNaPlanszy.BiezacyGraczNieMozeWykonacRuchu;
+                else return SytuacjaNaPlanszy.ObajGraczeNieMogaWykonacRuchu;
+            }
+        }
+
+        public int NumerGraczaMajacegoPrzewage
+        {
+            get
+            {
+                if (LiczbaPolGracz1 == LiczbaPolGracz2) return 0;
+                else return (LiczbaPolGracz1 > LiczbaPolGracz2) ? 1 : 2;
+            }
+        }
     }
 }
