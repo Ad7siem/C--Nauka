@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using static Refersi.PlanszaDLaDwochGraczy;
 
 namespace Refersi
 {
@@ -12,52 +13,55 @@ namespace Refersi
     /// </summary>
     public partial class MainWindow : Window
     {
+
         private ReversiSilnikAI silnik = new ReversiSilnikAI(1, 8, 8);
 
-        private SolidColorBrush[] kolory = { Brushes.Ivory, Brushes.Green, Brushes.Sienna };
+        //private SolidColorBrush[] kolory = { Brushes.Ivory, Brushes.Green, Brushes.Sienna };
         string[] nazwyGraczy = { "", "zielony", "brązowy" };
 
-        private Button[,] plansza;
+        //private Button[,] plansza;
 
-        private bool planszaZainicjowana
-        {
-            get
-            {
-                return plansza[silnik.SzerokoscPlanszy - 1, silnik.WysokoscPlanszy - 1] != null;
-            }
-        }
+        //private bool planszaZainicjowana
+        //{
+        //    get
+        //    {
+        //        return plansza[silnik.SzerokoscPlanszy - 1, silnik.WysokoscPlanszy - 1] != null;
+        //    }
+        //}
 
         private void uzgodnijZawartocPlanszy()
         {
-            if (!planszaZainicjowana) return;
+            //if (!planszaZainicjowana) return;
 
             for (int i = 0; i < silnik.SzerokoscPlanszy; i++)
                 for (int j = 0; j < silnik.WysokoscPlanszy; j++)
                 {
-                    plansza[i, j].Background = kolory[silnik.PobierzStanPola(i, j)];
-                    plansza[i, j].Content = silnik.PobierzStanPola(i, j).ToString();
+                    //plansza[i, j].Background = kolory[silnik.PobierzStanPola(i, j)];
+                    //plansza[i, j].Content = silnik.PobierzStanPola(i, j).ToString();
+                    planszaKontrolka.ZaznaczRuch(new WspolrzednePola(i, j), (StanPola)silnik.PobierzStanPola(i, j));
                 }
 
-            przyciskKolorGracza.Background = kolory[silnik.NumerGraczaWykonujacegoNastepnyRuch];
+            przyciskKolorGracza.Background = planszaKontrolka.PedzelDlaStanu((StanPola)silnik.NumerGraczaWykonujacegoNastepnyRuch); //kolory[silnik.NumerGraczaWykonujacegoNastepnyRuch];
             liczbaPolZielonych.Text = silnik.LiczbaPolGracz1.ToString();
             LiczbaPolBrazowych.Text = silnik.LiczbaPolGracz2.ToString();
         }
 
-        private struct WspolrzednePola
-        {
-            public int Poziomo, Pionowo;
-        }
+        //private struct WspolrzednePola
+        //{
+        //    public int Poziomo, Pionowo;
+        //}
         private static string symbolPola(int poziomo, int pionowo)
         {
             if (poziomo > 25 || pionowo > 8) return "(" + poziomo.ToString() + "," + pionowo.ToString() + ")";
             return "" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[poziomo] + "123456789"[pionowo];
         }
-        void kliknieciePolaPlanszy(object sender, RoutedEventArgs e)
+        //void kliknieciePolaPlanszy(object sender, RoutedEventArgs e)
+        private void planszaKontrolka_KliknieciePola(object sender, PlanszaEventArgs e)
         {
-            Button kliknietyPrzycisk = sender as Button;
-            WspolrzednePola wspolrzedne = (WspolrzednePola)kliknietyPrzycisk.Tag;
-            int kliknietePoziomo = wspolrzedne.Poziomo;
-            int kliknietePionowo = wspolrzedne.Pionowo;
+            //Button kliknietyPrzycisk = sender as Button;
+            //WspolrzednePola wspolrzedne = (WspolrzednePola)kliknietyPrzycisk.Tag;
+            int kliknietePoziomo = e.WspolrzednePola.Poziomo; //wspolrzedne.Poziomo;
+            int kliknietePionowo = e.WspolrzednePola.Pionowo; //wspolrzedne.Pionowo;
 
             // wykonywanie ruchu
             int zapamietanyNumerGracza = silnik.NumerGraczaWykonujacegoNastepnyRuch;
@@ -109,7 +113,7 @@ namespace Refersi
                     }
                     else
                     {
-                        planszaSiatka.IsEnabled = false;
+                        planszaKontrolka.IsEnabled = false;
                         przyciskKolorGracza.IsEnabled = false;
                     }
                 }
@@ -136,13 +140,13 @@ namespace Refersi
             listaRuchowZielony.Items.Clear();
             listaRuchowBrazowy.Items.Clear();
             uzgodnijZawartocPlanszy();
-            planszaSiatka.IsEnabled = true;
+            planszaKontrolka.IsEnabled = true;
             przyciskKolorGracza.IsEnabled = true;
         }
 
         private WspolrzednePola? ustalNajlepszyRuch()
         {
-            if (!planszaSiatka.IsEnabled) return null;
+            if (!planszaKontrolka.IsEnabled) return null;
 
             if(silnik.LiczbaPustychPol == 0)
             {
@@ -167,8 +171,20 @@ namespace Refersi
             WspolrzednePola? wspolrzednePola = ustalNajlepszyRuch();
             if (wspolrzednePola.HasValue)
             {
-                SolidColorBrush kolorPodpowiedzi = kolory[silnik.NumerGraczaWykonujacegoNastepnyRuch].Lerp(kolory[0], 0.5f);
-                plansza[wspolrzednePola.Value.Poziomo, wspolrzednePola.Value.Pionowo].Background = kolorPodpowiedzi;
+                planszaKontrolka.ZaznaczPodpowiedz(wspolrzednePola.Value, (StanPola)silnik.NumerGraczaWykonujacegoNastepnyRuch);
+                //SolidColorBrush kolorPodpowiedzi = kolory[silnik.NumerGraczaWykonujacegoNastepnyRuch].Lerp(kolory[0], 0.5f);
+                //plansza[wspolrzednePola.Value.Poziomo, wspolrzednePola.Value.Pionowo].Background = kolorPodpowiedzi;
+            }
+        }
+
+        private void wykonajNajlepszyRuch()
+        {
+            WspolrzednePola? wspolrzednePola = ustalNajlepszyRuch();
+            if (wspolrzednePola.HasValue)
+            {
+                planszaKontrolka_KliknieciePola(planszaKontrolka, new PlanszaEventArgs() { WspolrzednePola = wspolrzednePola.Value });
+                //Button przycisk = plansza[wspolrzednePola.Value.Poziomo, wspolrzednePola.Value.Pionowo];
+                //kliknieciePolaPlanszy(przycisk, null);
             }
         }
 
@@ -179,26 +195,26 @@ namespace Refersi
         {
             InitializeComponent();
 
-            // podział siatki na wiersze i kolumny
-            for (int i = 0; i < silnik.SzerokoscPlanszy; i++)
-                planszaSiatka.ColumnDefinitions.Add(new ColumnDefinition());
-            for (int j = 0; j < silnik.WysokoscPlanszy; j++)
-                planszaSiatka.RowDefinitions.Add(new RowDefinition());
+            //// podział siatki na wiersze i kolumny
+            //for (int i = 0; i < silnik.SzerokoscPlanszy; i++)
+            //    planszaSiatka.ColumnDefinitions.Add(new ColumnDefinition());
+            //for (int j = 0; j < silnik.WysokoscPlanszy; j++)
+            //    planszaSiatka.RowDefinitions.Add(new RowDefinition());
 
-            // tworzenie przycisków
-            plansza = new Button[silnik.SzerokoscPlanszy, silnik.WysokoscPlanszy];
-            for (int i = 0; i < silnik.SzerokoscPlanszy; i++)
-                for(int j = 0; j < silnik.WysokoscPlanszy; j++)
-                {
-                    Button przycisk = new Button();
-                    przycisk.Margin = new Thickness(0);
-                    planszaSiatka.Children.Add(przycisk);
-                    Grid.SetColumn(przycisk, i);
-                    Grid.SetRow(przycisk, j);
-                    przycisk.Tag = new WspolrzednePola { Poziomo = i, Pionowo = j };
-                    przycisk.Click += new RoutedEventHandler(kliknieciePolaPlanszy);
-                    plansza[i, j] = przycisk;
-                }
+            //// tworzenie przycisków
+            //plansza = new Button[silnik.SzerokoscPlanszy, silnik.WysokoscPlanszy];
+            //for (int i = 0; i < silnik.SzerokoscPlanszy; i++)
+            //    for(int j = 0; j < silnik.WysokoscPlanszy; j++)
+            //    {
+            //        Button przycisk = new Button();
+            //        przycisk.Margin = new Thickness(0);
+            //        planszaSiatka.Children.Add(przycisk);
+            //        Grid.SetColumn(przycisk, i);
+            //        Grid.SetRow(przycisk, j);
+            //        przycisk.Tag = new WspolrzednePola { Poziomo = i, Pionowo = j };
+            //        przycisk.Click += new RoutedEventHandler(kliknieciePolaPlanszy);
+            //        plansza[i, j] = przycisk;
+            //    }
 
             uzgodnijZawartocPlanszy();
 
@@ -208,15 +224,7 @@ namespace Refersi
             //uzgodnijZawartocPlanszy();
         }
 
-        private void wykonajNajlepszyRuch()
-        {
-            WspolrzednePola? wspolrzednePola = ustalNajlepszyRuch();
-            if (wspolrzednePola.HasValue)
-            {
-                Button przycisk = plansza[wspolrzednePola.Value.Poziomo, wspolrzednePola.Value.Pionowo];
-                kliknieciePolaPlanszy(przycisk, null);
-            }
-        }
+
         private void przyciskKolorGracza_Click(object sender, RoutedEventArgs e)
         {
             if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control)) wykonajNajlepszyRuch();
@@ -292,5 +300,7 @@ namespace Refersi
             MessageBox.Show("Reversi Mobile\nwersja " + wersja.Major.ToString() + "." + wersja.Minor.ToString() + "." + wersja.Build.ToString() + "." + wersja.Revision.ToString() + "\n(c) Jacek Matulewski 2004,2009\n\nNajnowszą wersję można pobrać ze strony \n (brak)", "Reversi - Informacje o programie");
         }
         #endregion
+
+
     }
 }

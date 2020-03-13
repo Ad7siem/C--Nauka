@@ -14,7 +14,7 @@
                     <MenuItem Header="Rozpoczynasz Ty (zielony)" Click="MenuItem_NowaGraDlaGracza_Click" />
                 </MenuItem>
                 <MenuItem Header="Nowa gra dla dwóch graczy" Click="MenuItem_NowaGraDla2Graczy_Click" />
-                <Separator/>
+                <Separator />
                 <MenuItem Header="Zamknij" Click="MenuItem_Zamknij_Click" />
             </MenuItem>
             <MenuItem Header="Pomoc">
@@ -33,7 +33,12 @@
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
+            <!--<Grid x:Name="planszaSiatka" Grid.Column="0" Margin="10,10,10,10" Background="Ivory" />-->
             <Grid x:Name="planszaSiatka" Grid.Column="0" Margin="10,10,10,10" Background="Ivory" />
+            <local:PlanszaDLaDwochGraczy x:Name="planszaKontrolka" Grid.Column="0" 
+                                         Margin="10,10,10,10" KolorPustegoPola="Ivory" 
+                                         KolorGracza1="Green" KolorGracza2="Sienna" 
+                                         KliknieciePola="planszaKontrolka_KliknieciePola"/>
             <Grid Grid.Column="1" Margin="0,0,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
