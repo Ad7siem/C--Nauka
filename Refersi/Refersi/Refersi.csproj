@@ -59,8 +59,6 @@
     <Compile Include="PlanszaDLaDwochGraczy.xaml.cs">
       <DependentUpon>PlanszaDLaDwochGraczy.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ReversiSilnik.cs" />
-    <Compile Include="ReversiSilnikAI.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -103,6 +101,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GryPlanszowe\GryPlanszowe.csproj">
+      <Project>{c6da0a3b-32fc-40d6-a7f8-f64da5dca76a}</Project>
+      <Name>GryPlanszowe</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReversiSilnik\ReversiSilnik.csproj">
+      <Project>{a65406de-5582-4df4-bca9-53773f715bb0}</Project>
+      <Name>ReversiSilnik</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

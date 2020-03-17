@@ -13,8 +13,10 @@ namespace Refersi
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        private ReversiSilnikAI silnik = new ReversiSilnikAI(1, 8, 8);
+        #region Tworzenie planszy
+        private ISilnikGryDlaJednegoGracza silnik = new ReversiSilnikAI(1, 8, 8);
+        private bool graPrzeciwkoKomputerowi = true;
+        private DispatcherTimer timer;
 
         //private SolidColorBrush[] kolory = { Brushes.Ivory, Brushes.Green, Brushes.Sienna };
         string[] nazwyGraczy = { "", "zielony", "brązowy" };
@@ -83,20 +85,20 @@ namespace Refersi
                 listaRuchowBrazowy.SelectedIndex = listaRuchowBrazowy.Items.Count - 1;
 
                 // sytuacje specjalne
-                ReversiSilnik.SytuacjaNaPlanszy sytuacjaNaPlanszy = silnik.ZbadajSytuacjeNaPlanszy();
+                SytuacjaNaPlanszy sytuacjaNaPlanszy = silnik.ZbadajSytuacjeNaPlanszy();
                 bool koniecGry = false;
                 switch (sytuacjaNaPlanszy)
                 {
-                    case ReversiSilnik.SytuacjaNaPlanszy.BiezacyGraczNieMozeWykonacRuchu:
+                    case SytuacjaNaPlanszy.BiezacyGraczNieMozeWykonacRuchu:
                         MessageBox.Show("Gracz " + nazwyGraczy[silnik.NumerGraczaWykonujacegoNastepnyRuch] + " zmuszony jest do oddania ruchu");
                         silnik.Pasuj();
                         uzgodnijZawartocPlanszy();
                         break;
-                    case ReversiSilnik.SytuacjaNaPlanszy.ObajGraczeNieMogaWykonacRuchu:
+                    case SytuacjaNaPlanszy.ObajGraczeNieMogaWykonacRuchu:
                         MessageBox.Show("Obaj gracze nie mogą wykonać ruchu");
                         koniecGry = true;
                         break;
-                    case ReversiSilnik.SytuacjaNaPlanszy.WszystkiePolaPlanszySaZajete:
+                    case SytuacjaNaPlanszy.WszystkiePolaPlanszySaZajete:
                         koniecGry = true;
                         break;
                 }
@@ -143,7 +145,9 @@ namespace Refersi
             planszaKontrolka.IsEnabled = true;
             przyciskKolorGracza.IsEnabled = true;
         }
+        #endregion
 
+        #region Ruch Gracza
         private WspolrzednePola? ustalNajlepszyRuch()
         {
             if (!planszaKontrolka.IsEnabled) return null;
@@ -187,49 +191,14 @@ namespace Refersi
                 //kliknieciePolaPlanszy(przycisk, null);
             }
         }
-
-        private bool graPrzeciwkoKomputerowi = true;
-
-        private DispatcherTimer timer;
-        public MainWindow()
-        {
-            InitializeComponent();
-
-            //// podział siatki na wiersze i kolumny
-            //for (int i = 0; i < silnik.SzerokoscPlanszy; i++)
-            //    planszaSiatka.ColumnDefinitions.Add(new ColumnDefinition());
-            //for (int j = 0; j < silnik.WysokoscPlanszy; j++)
-            //    planszaSiatka.RowDefinitions.Add(new RowDefinition());
-
-            //// tworzenie przycisków
-            //plansza = new Button[silnik.SzerokoscPlanszy, silnik.WysokoscPlanszy];
-            //for (int i = 0; i < silnik.SzerokoscPlanszy; i++)
-            //    for(int j = 0; j < silnik.WysokoscPlanszy; j++)
-            //    {
-            //        Button przycisk = new Button();
-            //        przycisk.Margin = new Thickness(0);
-            //        planszaSiatka.Children.Add(przycisk);
-            //        Grid.SetColumn(przycisk, i);
-            //        Grid.SetRow(przycisk, j);
-            //        przycisk.Tag = new WspolrzednePola { Poziomo = i, Pionowo = j };
-            //        przycisk.Click += new RoutedEventHandler(kliknieciePolaPlanszy);
-            //        plansza[i, j] = przycisk;
-            //    }
-
-            uzgodnijZawartocPlanszy();
-
-            // testy
-            //silnik.PolozKamien(2, 4);
-            //silnik.PolozKamien(4, 5);
-            //uzgodnijZawartocPlanszy();
-        }
-
-
+        #endregion
+        
         private void przyciskKolorGracza_Click(object sender, RoutedEventArgs e)
         {
             if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control)) wykonajNajlepszyRuch();
             else zaznaczNajlepszyRuch();
         }
+
         #region Metody zdarzeniowe menu głównego
         //Gra, Nowa gra dla jednego gracza, Rozpoczyna komputer (brązowy)
         private void MenuItem_NowaGraDlaGracza_RozpoczynaKomputer_Click(object sender, RoutedEventArgs e)
@@ -273,7 +242,7 @@ namespace Refersi
             MessageBox.Show(
                 "W grze Reversi gracze zajmują na przemian pola planszy, przejmując przy tym wszystkie pola przeciwnika znajujące sie między nowo zajętym polem, a innymi polami gracza wykonującego ruch. Celem gry jest zdobycie większej liczby pól niż przeciwnik. \n" +
                 "Gracz może zająć jedynie takie pole, które pozwoli mu przejąć przynajmniej jedno pole przeciwnika. Jeżeli takiego pola nie ma, musi oddać ruch.\n" +
-                "Gra kończy się w momencie zajęcia wszystkich pól lub gdy żaden z graczy nie może wykonać ruchu. \n", 
+                "Gra kończy się w momencie zajęcia wszystkich pól lub gdy żaden z graczy nie może wykonać ruchu. \n",
                 "Reversi - Zasady gry");
 
         }
@@ -285,7 +254,7 @@ namespace Refersi
                 "2. Unikać ustawienia pionka tuż przy rogu. \n" +
                 "3. Ustawić pionek przy krawędzi planszy. \n" +
                 "4. Unikać ustawienia pionka w wierszu lub kolumnie oddalonej o jedno pole od krawędzi planszy. \n" +
-                "5. Wybierać pole, w wyniku którego zdobyta zostanie największa liczba pól przeciwnika. \n", 
+                "5. Wybierać pole, w wyniku którego zdobyta zostanie największa liczba pól przeciwnika. \n",
                 "Reversi - Strategia Komputera");
         }
         //Pomoc, Strona WWW
@@ -300,6 +269,43 @@ namespace Refersi
             MessageBox.Show("Reversi Mobile\nwersja " + wersja.Major.ToString() + "." + wersja.Minor.ToString() + "." + wersja.Build.ToString() + "." + wersja.Revision.ToString() + "\n(c) Jacek Matulewski 2004,2009\n\nNajnowszą wersję można pobrać ze strony \n (brak)", "Reversi - Informacje o programie");
         }
         #endregion
+                
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            #region Część kodu w MainWindow, która została zakomentowana po dodaniu PlanszaDlaDwochGraczy.xmal.cs
+            //// podział siatki na wiersze i kolumny
+            //for (int i = 0; i < silnik.SzerokoscPlanszy; i++)
+            //    planszaSiatka.ColumnDefinitions.Add(new ColumnDefinition());
+            //for (int j = 0; j < silnik.WysokoscPlanszy; j++)
+            //    planszaSiatka.RowDefinitions.Add(new RowDefinition());
+
+            //// tworzenie przycisków
+            //plansza = new Button[silnik.SzerokoscPlanszy, silnik.WysokoscPlanszy];
+            //for (int i = 0; i < silnik.SzerokoscPlanszy; i++)
+            //    for(int j = 0; j < silnik.WysokoscPlanszy; j++)
+            //    {
+            //        Button przycisk = new Button();
+            //        przycisk.Margin = new Thickness(0);
+            //        planszaSiatka.Children.Add(przycisk);
+            //        Grid.SetColumn(przycisk, i);
+            //        Grid.SetRow(przycisk, j);
+            //        przycisk.Tag = new WspolrzednePola { Poziomo = i, Pionowo = j };
+            //        przycisk.Click += new RoutedEventHandler(kliknieciePolaPlanszy);
+            //        plansza[i, j] = przycisk;
+            //    }
+            #endregion
+
+            uzgodnijZawartocPlanszy();
+
+            #region Test działania metody PolozKamien
+            // testy
+            //silnik.PolozKamien(2, 4);
+            //silnik.PolozKamien(4, 5);
+            //uzgodnijZawartocPlanszy();
+            #endregion
+        }
 
 
     }

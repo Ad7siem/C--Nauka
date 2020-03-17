@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refersi", "Refersi\Refersi.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReversiSilnik_TestyJednostkowe", "ReversiSilnik_TestyJednostkowe\ReversiSilnik_TestyJednostkowe.csproj", "{EB9D7BB2-555F-4348-A962-9EFE2FBA39DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReversiSilnik", "ReversiSilnik\ReversiSilnik.csproj", "{A65406DE-5582-4DF4-BCA9-53773F715BB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GryPlanszowe", "GryPlanszowe\GryPlanszowe.csproj", "{C6DA0A3B-32FC-40D6-A7F8-F64DA5DCA76A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{EB9D7BB2-555F-4348-A962-9EFE2FBA39DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB9D7BB2-555F-4348-A962-9EFE2FBA39DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB9D7BB2-555F-4348-A962-9EFE2FBA39DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A65406DE-5582-4DF4-BCA9-53773F715BB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A65406DE-5582-4DF4-BCA9-53773F715BB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A65406DE-5582-4DF4-BCA9-53773F715BB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A65406DE-5582-4DF4-BCA9-53773F715BB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6DA0A3B-32FC-40D6-A7F8-F64DA5DCA76A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6DA0A3B-32FC-40D6-A7F8-F64DA5DCA76A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6DA0A3B-32FC-40D6-A7F8-F64DA5DCA76A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6DA0A3B-32FC-40D6-A7F8-F64DA5DCA76A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

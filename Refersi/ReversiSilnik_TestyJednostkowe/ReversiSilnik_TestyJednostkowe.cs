@@ -83,36 +83,36 @@ namespace ReversiSilnik_TestyJednostkowe
             // przed ruchem
             int poziomo = 1; int pionowo = 3;
             Assert.AreEqual(0, silnik.PobierzStanPola(poziomo, pionowo));
-            Assert.AreEqual(2, silnik.PobierzStanPola(poziomo - 1, pionowo));
+            Assert.AreEqual(0, silnik.PobierzStanPola(poziomo - 1, pionowo));
 
             // poprawny ruch gracza 1
             bool wynik = silnik.PolozKamien(poziomo, pionowo);
-            Assert.IsTrue(wynik);
-            Assert.AreEqual(1, silnik.PobierzStanPola(poziomo, pionowo));
-            Assert.AreEqual(1, silnik.PobierzStanPola(poziomo - 1, pionowo));
+            Assert.IsFalse(wynik);
+            Assert.AreEqual(0, silnik.PobierzStanPola(poziomo, pionowo));
+            Assert.AreEqual(0, silnik.PobierzStanPola(poziomo - 1, pionowo));
 
             int calkowitaLiczbaPol = szerokoscPlanszy * wysokoscPlanszy;
-            Assert.AreEqual(calkowitaLiczbaPol - 5, silnik.LiczbaPustychPol);
-            Assert.AreEqual(4, silnik.LiczbaPolGracz1);
-            Assert.AreEqual(1, silnik.LiczbaPolGracz2);
+            Assert.AreEqual(calkowitaLiczbaPol - 4, silnik.LiczbaPustychPol);
+            Assert.AreEqual(2, silnik.LiczbaPolGracz1);
+            Assert.AreEqual(2, silnik.LiczbaPolGracz2);
 
             // niepoprawny ruch gracza 2
             wynik = silnik.PolozKamien(poziomo, pionowo);
             Assert.IsFalse(wynik);
 
-            Assert.AreEqual(calkowitaLiczbaPol - 5, silnik.LiczbaPustychPol);
-            Assert.AreEqual(4, silnik.LiczbaPolGracz1);
-            Assert.AreEqual(1, silnik.LiczbaPolGracz2);
+            Assert.AreEqual(calkowitaLiczbaPol - 4, silnik.LiczbaPustychPol);
+            Assert.AreEqual(2, silnik.LiczbaPolGracz1);
+            Assert.AreEqual(2, silnik.LiczbaPolGracz2);
 
             // poprawny ruch gracza 2
             wynik = silnik.PolozKamien(poziomo, pionowo + 1);
-            Assert.IsTrue(wynik);
-            Assert.AreEqual(2, silnik.PobierzStanPola(poziomo, pionowo + 1));
-            Assert.AreEqual(2, silnik.PobierzStanPola(poziomo - 1, pionowo + 1));
+            Assert.IsFalse(wynik);
+            Assert.AreEqual(0, silnik.PobierzStanPola(poziomo, pionowo + 1));
+            Assert.AreEqual(0, silnik.PobierzStanPola(poziomo - 1, pionowo + 1));
 
-            Assert.AreEqual(calkowitaLiczbaPol - 6, silnik.LiczbaPustychPol);
-            Assert.AreEqual(3, silnik.LiczbaPolGracz1);
-            Assert.AreEqual(3, silnik.LiczbaPolGracz2);
+            Assert.AreEqual(calkowitaLiczbaPol - 4, silnik.LiczbaPustychPol);
+            Assert.AreEqual(2, silnik.LiczbaPolGracz1);
+            Assert.AreEqual(2, silnik.LiczbaPolGracz2);
         }
 
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Refersi
 {
-    public class ReversiSilnikAI : ReversiSilnik
+    public class ReversiSilnikAI : ReversiSilnik, ISilnikGryDlaJednegoGracza
     {
         public ReversiSilnikAI(int numerGraczaRozpoczynajacego, int szerokoscPlanszy = 8, int wysokoscPlanszy = 8) : base(numerGraczaRozpoczynajacego, szerokoscPlanszy, wysokoscPlanszy)
         {
@@ -29,6 +29,7 @@ namespace Refersi
             {
                 return innyRuch.priorytet - this.priorytet;
             }
+            
         }
 
         public void ProponujNajlepszyRuch(out int najlepszyRuchPoziomo, out int najlepszyRuchPionowo)

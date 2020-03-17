@@ -93,7 +93,7 @@ namespace Refersi
         public int Wysokosc
         {
             get { return wysokosc; }
-            set { tworzPlansze(szerokosc, value);}
+            set { tworzPlansze(szerokosc, value); }
         }
         #endregion
 
@@ -101,8 +101,8 @@ namespace Refersi
         private SolidColorBrush pedzelPustegoPola = Brushes.Ivory;
         private SolidColorBrush pedzelGracza1 = Brushes.Green;
         private SolidColorBrush pedzelGracza2 = Brushes.Sienna;
-        
-        public SolidColorBrush PedzelDlaStanu (StanPola stanPola)
+
+        public SolidColorBrush PedzelDlaStanu(StanPola stanPola)
         {
             switch (stanPola)
             {
@@ -125,10 +125,10 @@ namespace Refersi
         public Color KolorPustegoPola
         {
             get { return pedzelPustegoPola.Color; }
-            set 
-            { 
-                pedzelPustegoPola = new SolidColorBrush(value); 
-                zmienKoloryWszystkichPrzyciskow(); 
+            set
+            {
+                pedzelPustegoPola = new SolidColorBrush(value);
+                zmienKoloryWszystkichPrzyciskow();
             }
         }
 
@@ -181,7 +181,7 @@ namespace Refersi
         {
             if (KliknieciePola != null)
                 KliknieciePola(this, new PlanszaEventArgs { WspolrzednePola = wspolrzednePola });
-        }
+        }                                  
         #endregion
 
         public PlanszaDLaDwochGraczy()

@@ -60,6 +60,10 @@
       <Project>{96156c84-1036-4735-a23a-c66a9c24bbc4}</Project>
       <Name>Refersi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ReversiSilnik\ReversiSilnik.csproj">
+      <Project>{a65406de-5582-4df4-bca9-53773f715bb0}</Project>
+      <Name>ReversiSilnik</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

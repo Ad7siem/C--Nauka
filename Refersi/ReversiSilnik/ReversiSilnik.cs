@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Refersi
 {
-    public class ReversiSilnik
+    public class ReversiSilnik : ISilnikGryDlaDwochGraczy
     {
         public int SzerokoscPlanszy { get; private set; }
         public int WysokoscPlanszy { get; private set; }
@@ -164,7 +164,7 @@ namespace Refersi
                 throw new Exception("Gracz nie może oddać ruchu, jeżeli wykonanie ruchu jest możliwe");
             zmienBiezacegoGracza();
         }
-
+        /*
         public enum SytuacjaNaPlanszy
         {
             RuchJestMozliwy,
@@ -172,7 +172,7 @@ namespace Refersi
             ObajGraczeNieMogaWykonacRuchu,
             WszystkiePolaPlanszySaZajete
         }
-
+        */
         public SytuacjaNaPlanszy ZbadajSytuacjeNaPlanszy()
         {
             if (LiczbaPustychPol == 0) return SytuacjaNaPlanszy.WszystkiePolaPlanszySaZajete;
@@ -199,5 +199,6 @@ namespace Refersi
                 else return (LiczbaPolGracz1 > LiczbaPolGracz2) ? 1 : 2;
             }
         }
+
     }
 }
