@@ -101,7 +101,7 @@ namespace PlikXml
                     IsExpanded = true                
                 };
             treeNode.Items.Add(newNode);
-            AddElementToNode(elementXml, newNode, level);
+            AddElementToNode(element, newNode, level);
             }
         }
 

@@ -62,8 +62,8 @@ namespace PlikXml
         {
             try
             {
-                //treeView.PopulateTreeViewWithXmlFile(sciezkaPliku);
-                XDocument xml = XDocument.Load("htttp://www.nbp.pl/kursy/xml/LastC.xml");
+                treeView.PopulateTreeViewWithXmlFile(sciezkaPliku);
+                //XDocument xml = XDocument.Load("htttp://www.nbp.pl/kursy/xml/LastC.xml");
             }
             catch(Exception exc)
             {
