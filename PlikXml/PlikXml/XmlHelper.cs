@@ -28,15 +28,15 @@ namespace PlikXml
             //    )
             //);
 
-            //xml.Save(filePath);   
-            
+            //xml.Save(filePath);
+
             // definiowanie obiektów
             XDeclaration declaration = new XDeclaration("1.0", "utf-8", "yes");
             XComment comment = new XComment("Window posiotion and title");
             XElement parameters = new XElement("parameters");
             XElement _window = new XElement("window");
             XAttribute title = new XAttribute("title", window.Title);
-            XElement posiotion = new XElement("position");
+            XElement position = new XElement("position");
             XElement X = new XElement("X", window.Left);
             XElement Y = new XElement("Y", window.Top);
             XElement size = new XElement("size");
@@ -44,12 +44,12 @@ namespace PlikXml
             XElement height = new XElement("height", window.Height);
 
             // budowanie drzewa (od gałęzi)
-            posiotion.Add(X);
-            posiotion.Add(Y);
+            position.Add(X);
+            position.Add(Y);
             size.Add(width);
             size.Add(height);
             _window.Add(title);
-            _window.Add(posiotion);
+            _window.Add(position);
             _window.Add(size);
             parameters.Add(_window);
 

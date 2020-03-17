@@ -3,8 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Xml.Linq;
-
-
+using System.Windows.Media;
 
 namespace PlikXml
 {
@@ -24,6 +23,13 @@ namespace PlikXml
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (sender is TextBox) Title = (sender as TextBox).Text;
+                
+            //{
+            //    TextBox tbx;
+            //    tbx = (TextBox)sender;
+            //    Title = tbx.Text;
+            //    tbx.Background = new SolidColorBrush(Color.FromRgb(90,90,90));
+            //}
         }
 
         private const string sciezkaPliku = "Ustawienia.xml";
@@ -52,7 +58,7 @@ namespace PlikXml
             MessageBox.Show(s);
 
             // kolekcja podelementów elementu okna
-            IEnumerable<XElement> podelementyOkna = xml.Root.Element("okno").Elements();
+            IEnumerable<XElement> podelementyOkna = xml.Root.Element("window").Elements();
             s = "Podelementy elementu okno: \n";
             foreach (XElement podelement in podelementyOkna) s += podelement.Name + "\n";
             MessageBox.Show(s);
@@ -63,7 +69,9 @@ namespace PlikXml
             try
             {
                 treeView.PopulateTreeViewWithXmlFile(sciezkaPliku);
+                //XDocument xml = XDocument.Load("..\\..\\MainWindow.xaml");
                 //XDocument xml = XDocument.Load("http://www.nbp.pl/kursy/xml/LastC.xml");
+                //treeView.PopulateTreeViewWithXmlFile("..\\..\\MainWindow.xaml");
             }
             catch(Exception exc)
             {
