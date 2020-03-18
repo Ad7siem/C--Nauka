@@ -20,11 +20,6 @@ namespace PlikXml
                 tbTytuł.Text = this.Title;
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (sender is TextBox) Title = (sender as TextBox).Text;
-        }
-
         private const string sciezkaPliku = "Ustawienia.xml";
 
         private void Window_Closed(object sender, EventArgs e)
@@ -32,6 +27,19 @@ namespace PlikXml
             this.SaveWindowPositionAndTitleToXmlFile(sciezkaPliku);
         }
 
+        #region TextChanged
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender is TextBox) Title = (sender as TextBox).Text;
+        }
+
+        private void waluta_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string waluta = (sender as TextBox).Text;
+        }
+        #endregion
+
+        #region Button
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             XDocument xml = XDocument.Load("Ustawienia.xml");
@@ -86,19 +94,19 @@ namespace PlikXml
                     tbKursyWalutNBP.Text += "\n" + pozycja.Value.ToString();
                 }
 
-                // wyszukiwanie pojedyńczej waluty sprzedaż
-                // Wersja 1 - sprzedaż
-                decimal kursSprzedazyEuro = tabelaKursowWalutNBP.Pozycja["EUR"].KursSprzedazy;
-                tbKursyWalutNBP.Text += "\n\nWartość sprzedaży Euro: " + kursSprzedazyEuro.ToString() + " zł";
-                // Wersja 2 - sprzedaż
-                tbKursyWalutNBP.Text += "\nWartość sprzedaży Euro: " + tabelaKursowWalutNBP.Pozycja["EUR"].KursSprzedazy.ToString() + " zł";
+                //// wyszukiwanie pojedyńczej waluty sprzedaż
+                //// Wersja 1 - sprzedaż
+                //decimal kursSprzedazyEuro = tabelaKursowWalutNBP.Pozycja["EUR"].KursSprzedazy;
+                //tbKursyWalutNBP.Text += "\n\nWartość sprzedaży Euro: " + kursSprzedazyEuro.ToString() + " zł";
+                //// Wersja 2 - sprzedaż
+                //tbKursyWalutNBP.Text += "\nWartość sprzedaży Euro: " + tabelaKursowWalutNBP.Pozycja["EUR"].KursSprzedazy.ToString() + " zł";
 
-                //wyszukiwanie pojedyńczej waluty kupna
-                decimal kursKupnaEuro = tabelaKursowWalutNBP.Pozycja["EUR"].KursyKupna;
-                tbKursyWalutNBP.Text += "\nWartość kupna Euro: " + kursKupnaEuro.ToString() + " zł";
+                ////wyszukiwanie pojedyńczej waluty kupna
+                //decimal kursKupnaEuro = tabelaKursowWalutNBP.Pozycja["EUR"].KursyKupna;
+                //tbKursyWalutNBP.Text += "\nWartość kupna Euro: " + kursKupnaEuro.ToString() + " zł";
 
-                // wyszukanie pojedyńczej waluty
-                tbKursyWalutNBP.Text += "\n\nWartość Euro: " + tabelaKursowWalutNBP.Pozycja["EUR"].ToString();
+                //// wyszukanie pojedyńczej waluty
+                //tbKursyWalutNBP.Text += "\n\nWartość Euro: " + tabelaKursowWalutNBP.Pozycja["EUR"].ToString();
 
             }
             catch (Exception exc)
@@ -106,5 +114,21 @@ namespace PlikXml
                 tbKursyWalutNBP.Text = "Błąd podczas pobierania kursó walut NBP:\n" + exc.Message;
             }
         }
+
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                TabelaKursowWalutNBP kursWaluty = XmlHelper.PobierzAktualnaTabeleKursowWalutNBP();
+                tbKursWaluty.Text = "Wartość sprzedaży: " + kursWaluty.Pozycja[waluta.Text.ToUpper()].KursSprzedazy.ToString() + " zł";
+                tbKursWaluty.Text += "\nWartość kupna: " + kursWaluty.Pozycja[waluta.Text.ToUpper()].KursyKupna.ToString() + " zł";
+            }
+            catch (Exception exc)
+            {
+                tbKursWaluty.Text = "ERROR \nNieznany skrót waluty \n" + exc.Message;
+            }
+        }
+        #endregion
     }
 }

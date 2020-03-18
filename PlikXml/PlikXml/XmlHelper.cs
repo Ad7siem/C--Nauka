@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Collections.Generic;
 using System;
 using System.Globalization;
+using System.Linq;
 
 namespace PlikXml
 {
@@ -161,6 +162,23 @@ namespace PlikXml
             return tabela;
         }
         #endregion
+
+        public static void ZapiszLokalnieTabelęKursówWalut(IEnumerable<KursyWalutyNBP> pozycje, string sciezkaPliku)
+        {
+            XDocument xml = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yer"),
+                new XElement("KursyWalut",
+                    from pozycja in pozycje
+                    //orderby pozycja.KodWaluty
+                    select new XElement("Pozycja",
+                        new XAttribute("Kod", pozycja.KodWaluty),
+                        new XElement("Sprzedaż", pozycja.KursSprzedazy),
+                        new XElement("Kupno", pozycja.KursyKupna)
+                    )
+                )
+            );
+            xml.Save(sciezkaPliku);
+        }
     }
 
     public struct KursyWalutyNBP
