@@ -2,7 +2,8 @@
 using System.Xml.Linq;
 using System.Windows.Controls;
 using System.Collections.Generic;
-
+using System;
+using System.Globalization;
 
 namespace PlikXml
 {
@@ -32,7 +33,7 @@ namespace PlikXml
 
             // definiowanie obiektów
             XDeclaration declaration = new XDeclaration("1.0", "utf-8", "yes");
-            XComment comment = new XComment("Window posiotion and title");
+            XComment comment = new XComment("Window position and title");
             XElement parameters = new XElement("parameters");
             XElement _window = new XElement("window");
             XAttribute title = new XAttribute("title", window.Title);
@@ -69,12 +70,16 @@ namespace PlikXml
                 XDocument xml = XDocument.Load(filePath);
 
                 // odczytanie tytułu okna
-                window.Title = xml.Root.Element("Window").Attribute("title").Value;
+                window.Title = xml.Root.Element("window").Attribute("title").Value;
 
                 // odczytanie pozycji i wielkość
-                XElement pozycja = xml.Root.Element("Window").Element("posiotion");
+                XElement pozycja = xml.Root.Element("window").Element("position");
                 window.Left = double.Parse(pozycja.Element("X").Value);
                 window.Top = double.Parse(pozycja.Element("Y").Value);
+
+                XElement wielkosc = xml.Root.Element("window").Element("size");
+                window.Width = double.Parse(wielkosc.Element("width").Value);
+                window.Height = double.Parse(wielkosc.Element("height").Value);
 
                 return true;
             }
@@ -122,6 +127,70 @@ namespace PlikXml
             treeView.EndInit();
         }
         #endregion
+
+        #region Kursy walut NBP
+        private static KursyWalutyNBP parsujPozycjeTabeliKursowWalutNBP(XElement elementPozycja, IFormatProvider formatProvider)
+        {
+            KursyWalutyNBP pozycja = new KursyWalutyNBP();
+            pozycja.NazwaWaluty = elementPozycja.Element("nazwa_waluty").Value;
+            pozycja.Przelicznik = double.Parse(elementPozycja.Element("przelicznik").Value, formatProvider);
+            pozycja.KodWaluty = elementPozycja.Element("kod_waluty").Value;
+            pozycja.KursyKupna = decimal.Parse(elementPozycja.Element("kurs_kupna").Value, formatProvider);
+            pozycja.KursSprzedazy = decimal.Parse(elementPozycja.Element("kurs_sprzedazy").Value, formatProvider);
+            return pozycja;
+        }
+
+        public static TabelaKursowWalutNBP PobierzAktualnaTabeleKursowWalutNBP()
+        {
+            IFormatProvider formatProvider = new CultureInfo("pl");
+
+            XDocument xml = XDocument.Load("http://www.nbp.pl/kursy/xml/LastC.xml");
+
+            TabelaKursowWalutNBP tabela = new TabelaKursowWalutNBP();
+            tabela.NumerTabeli = xml.Root.Element("numer_tabeli").Value;
+            tabela.DataNotowania = DateTime.Parse(xml.Root.Element("data_notowania").Value, formatProvider);
+            tabela.DataPublikacji = DateTime.Parse(xml.Root.Element("data_publikacji").Value, formatProvider);
+            tabela.Pozycja = new Dictionary<string, KursyWalutyNBP>();
+            foreach (XElement elementPozycja in xml.Root.Elements("pozycja"))
+            {
+                KursyWalutyNBP pozycja = parsujPozycjeTabeliKursowWalutNBP(elementPozycja, formatProvider);
+
+                tabela.Pozycja.Add(pozycja.KodWaluty, pozycja);
+            }
+
+            return tabela;
+        }
+        #endregion
     }
+
+    public struct KursyWalutyNBP
+    {
+        public string NazwaWaluty;
+        public string KodWaluty;
+        public double Przelicznik;
+        public decimal KursyKupna;
+        public decimal KursSprzedazy;
+
+        public string ToString(IFormatProvider formatProvider)
+        {
+            return KodWaluty + " " + KursyKupna.ToString(formatProvider) + "-" + KursSprzedazy.ToString(formatProvider);
+        }
+
+        public override string ToString()
+        {
+            return ToString(new CultureInfo("pl"));
+        }
+    }
+
+    public struct TabelaKursowWalutNBP
+    {
+        public string NumerTabeli;
+        public DateTime DataNotowania;
+        public DateTime DataPublikacji;
+        public Dictionary<string, KursyWalutyNBP> Pozycja;
+    }
+
+
+
 
 }

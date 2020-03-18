@@ -17,6 +17,8 @@
             <TextBox x:Name="tbTytuł" Margin="10,2,10,0" BorderBrush="Black" Text="MainWindow" TextChanged="TextBox_TextChanged" />
             <Button Margin="10,30,10,0" Height="20" Content="Wyświetl informacje" Click="Button_Click" />
             <Button Margin="10,10,10,0" Height="20" Content="Załaduj do drzewa" Click="Button_Click_1" />
+            <Button Margin="10,10,10,0" Height="20" Content="Pobierz kursy walut" Click="Button_Click_2" />
+            <TextBlock x:Name="tbKursyWalutNBP" Margin="10,10,10,0" />
         </StackPanel>
         <TreeView x:Name="treeView" Grid.Column="1" Margin="10,10,10,10" />
     </Grid>

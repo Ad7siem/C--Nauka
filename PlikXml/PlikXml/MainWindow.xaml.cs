@@ -23,13 +23,6 @@ namespace PlikXml
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (sender is TextBox) Title = (sender as TextBox).Text;
-                
-            //{
-            //    TextBox tbx;
-            //    tbx = (TextBox)sender;
-            //    Title = tbx.Text;
-            //    tbx.Background = new SolidColorBrush(Color.FromRgb(90,90,90));
-            //}
         }
 
         private const string sciezkaPliku = "Ustawienia.xml";
@@ -68,10 +61,10 @@ namespace PlikXml
         {
             try
             {
-                treeView.PopulateTreeViewWithXmlFile(sciezkaPliku);
+                //treeView.PopulateTreeViewWithXmlFile(sciezkaPliku);
                 //XDocument xml = XDocument.Load("..\\..\\MainWindow.xaml");
                 //XDocument xml = XDocument.Load("http://www.nbp.pl/kursy/xml/LastC.xml");
-                //treeView.PopulateTreeViewWithXmlFile("..\\..\\MainWindow.xaml");
+                treeView.PopulateTreeViewWithXmlFile("http://www.nbp.pl/kursy/xml/LastC.xml");
             }
             catch(Exception exc)
             {
@@ -79,5 +72,39 @@ namespace PlikXml
             }
         }
 
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                TabelaKursowWalutNBP tabelaKursowWalutNBP = XmlHelper.PobierzAktualnaTabeleKursowWalutNBP();
+                tbKursyWalutNBP.Text = "Tabela kursów walut";
+                tbKursyWalutNBP.Text += "\n\nNumer tabeli: " + tabelaKursowWalutNBP.NumerTabeli;
+                tbKursyWalutNBP.Text += "\nData notowania: " + tabelaKursowWalutNBP.DataNotowania.ToLongDateString();
+                tbKursyWalutNBP.Text += "\nData publikacji: " + tabelaKursowWalutNBP.DataPublikacji.ToLongDateString();
+                foreach (KeyValuePair<string, KursyWalutyNBP> pozycja in tabelaKursowWalutNBP.Pozycja)
+                {
+                    tbKursyWalutNBP.Text += "\n" + pozycja.Value.ToString();
+                }
+
+                // wyszukiwanie pojedyńczej waluty sprzedaż
+                // Wersja 1 - sprzedaż
+                decimal kursSprzedazyEuro = tabelaKursowWalutNBP.Pozycja["EUR"].KursSprzedazy;
+                tbKursyWalutNBP.Text += "\n\nWartość sprzedaży Euro: " + kursSprzedazyEuro.ToString() + " zł";
+                // Wersja 2 - sprzedaż
+                tbKursyWalutNBP.Text += "\nWartość sprzedaży Euro: " + tabelaKursowWalutNBP.Pozycja["EUR"].KursSprzedazy.ToString() + " zł";
+
+                //wyszukiwanie pojedyńczej waluty kupna
+                decimal kursKupnaEuro = tabelaKursowWalutNBP.Pozycja["EUR"].KursyKupna;
+                tbKursyWalutNBP.Text += "\nWartość kupna Euro: " + kursKupnaEuro.ToString() + " zł";
+
+                // wyszukanie pojedyńczej waluty
+                tbKursyWalutNBP.Text += "\n\nWartość Euro: " + tabelaKursowWalutNBP.Pozycja["EUR"].ToString();
+
+            }
+            catch (Exception exc)
+            {
+                tbKursyWalutNBP.Text = "Błąd podczas pobierania kursó walut NBP:\n" + exc.Message;
+            }
+        }
     }
 }
