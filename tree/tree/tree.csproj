@@ -118,6 +118,9 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="choinka.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="choinka.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

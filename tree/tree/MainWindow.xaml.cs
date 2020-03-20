@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace tree
@@ -11,11 +12,20 @@ namespace tree
     public partial class MainWindow : Window
     {
         private IconInTheTray iconInTheTray;
+        MediaPlayer odtwarzaczAudio;
         public MainWindow()
         {
             InitializeComponent();
 
             iconInTheTray = new IconInTheTray(this);
+            string sciezkaPlikuDzwiekowego = System.IO.Path.GetFullPath("choinka.mp3");
+            if (System.IO.File.Exists(sciezkaPlikuDzwiekowego))
+            {
+                odtwarzaczAudio = new MediaPlayer();
+                odtwarzaczAudio.Open(new Uri(sciezkaPlikuDzwiekowego, UriKind.RelativeOrAbsolute));
+                odtwarzaczAudio.MediaEnded += (s, e) => { odtwarzaczAudio = null; };
+                odtwarzaczAudio.Play();
+            }
         }
 
         #region Przenoszenie okna
