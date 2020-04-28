@@ -22,6 +22,23 @@
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="{StaticResource NiebieskiGradiant}" />
+                    <Setter Property="Control.LayoutTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="1.1" ScaleY="1.1" />
+                        </Setter.Value>
+                    </Setter>
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty = "LayoutTransform.(ScaleTransform.ScaleX)"
+                                                 Duration="0:0:1" From="1" To="1.2"
+                                                 AutoReverse="True" RepeatBehavior="Forever" />
+                                <DoubleAnimation Storyboard.TargetProperty = "LayoutTransform.(ScaleTransform.ScaleY)"
+                                                 Duration="0:0:1" From="1" To="1.2"
+                                                 AutoReverse="True" RepeatBehavior="Forever" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
                 </Trigger>
             </Style.Triggers>
         </Style>
