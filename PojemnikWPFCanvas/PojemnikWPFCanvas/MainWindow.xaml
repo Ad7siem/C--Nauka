@@ -1,0 +1,17 @@
+﻿<Window x:Class="PojemnikWPFCanvas.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PojemnikWPFCanvas"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        FontSize="20">
+    <Canvas>
+        <TextBox Canvas.Left="0" Canvas.Top="0" Margin="5" Text="TextBox" />
+        <TextBlock Canvas.Left="0" Canvas.Top="50" Margin="5" Text="TextBlock" Background="LightGray"/>
+        <Label Canvas.Left="0" Canvas.Top="100" Margin="5" Content="Label" Background="Gray" />
+        <Slider Canvas.Right="0" Canvas.Top="0" Width="200" Margin="5" Background="DarkGray" />
+        <Button Canvas.Right="0" Canvas.Bottom="0" Margin="5" Content="Button" />
+    </Canvas>
+</Window>

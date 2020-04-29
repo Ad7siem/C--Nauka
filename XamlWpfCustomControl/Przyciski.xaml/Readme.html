@@ -1,0 +1,13 @@
+﻿<HTML>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<H3>Aby użyć tej kontrolki niestandardowej w pliku XAML w innym projekcie, wykonaj następujące kroki:</H3>
+<BODY>
+    <UL>
+        <LI>Dodaj odwołanie do tego projektu.</LI>
+        <LI>Dodaj następującą linię do elementu głównego pliku XAML, gdzie chcesz użyć tej kontrolki:<BR>
+            xmlns:MyNamespace="clr-namespace:Przyciski.xaml;assembly=Przyciski.xaml"</LI>
+        <LI>Użyj formantu w pliku XAML:<BR>
+            &LT;MyNamespace:CustomControl1/&GT;</LI>
+    </UL>
+</BODY>
+</HTML>

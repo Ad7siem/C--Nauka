@@ -1,0 +1,17 @@
+﻿<Window x:Class="PojemnikiWPFUniformGrid.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PojemnikiWPFUniformGrid"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        FontSize="20">
+    <UniformGrid Columns="3" Rows="3">
+        <TextBox Margin="5" Text="TextBox" />
+        <TextBlock Margin="5" Text="TextBlock" Background="LightGray" />
+        <Label Margin="5" Content="Label" Background="Gray" />
+        <Slider Margin="5" Background="DarkGray" />
+        <Button Margin="5" Content="Button" />
+    </UniformGrid>
+</Window>

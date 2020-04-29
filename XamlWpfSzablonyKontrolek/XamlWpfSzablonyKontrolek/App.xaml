@@ -1,0 +1,57 @@
+﻿<Application x:Class="XamlWpfSzablonyKontrolek.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:XamlWpfSzablonyKontrolek"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <LinearGradientBrush x:Key="CzerwonoBialoCzerwonyGradiant"
+                             StartPoint="0,0.5" EndPoint="1,0.5">
+            <GradientStop Color="Red" Offset="0.0" />
+            <GradientStop Color="White" Offset="0.4" />
+            <GradientStop Color="White" Offset="0.6" />
+            <GradientStop Color="Red" Offset="1.0" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="NiebieskiGradiant"
+                             StartPoint="0,0.5" EndPoint="1,0.5">
+            <GradientStop Color="Blue" Offset="0.0" />
+            <GradientStop Color="Navy" Offset="1.0" />
+        </LinearGradientBrush>
+        <ControlTemplate x:Key="SzablonCzerwony" TargetType="{x:Type Button}">
+            <Grid>
+                <Rectangle x:Name="tlo" RadiusX="15" RadiusY="15"
+                           Fill="{StaticResource CzerwonoBialoCzerwonyGradiant}">
+                    <Rectangle.BitmapEffect>
+                        <OuterGlowBitmapEffect GlowColor="Black" GlowSize="5" />
+                    </Rectangle.BitmapEffect>
+                    <Rectangle.LayoutTransform>
+                        <RotateTransform Angle="0" x:Name="obrot" />
+                    </Rectangle.LayoutTransform>
+                </Rectangle>
+                <Viewbox>
+                    <ContentPresenter Margin="10,10,10,10" />
+                </Viewbox>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="tlo" Property="Fill"
+                            Value="{StaticResource NiebieskiGradiant}" />
+                    <Setter TargetName="tlo" Property="BitmapEffect">
+                        <Setter.Value>
+                            <OuterGlowBitmapEffect GlowColor="Blue" GlowSize="5" />
+                        </Setter.Value>
+                    </Setter>
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="obrot"
+                                                 Storyboard.TargetProperty="Angle"
+                                                 Duration="0:0:2"
+                                                 From="0" To="90" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Application.Resources>
+</Application>

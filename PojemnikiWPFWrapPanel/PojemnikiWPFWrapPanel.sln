@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PojemnikiWPFWrapPanel", "PojemnikiWPFWrapPanel\PojemnikiWPFWrapPanel.csproj", "{BBED65A0-5AA2-4BE2-A253-02F0F4852941}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBED65A0-5AA2-4BE2-A253-02F0F4852941}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBED65A0-5AA2-4BE2-A253-02F0F4852941}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBED65A0-5AA2-4BE2-A253-02F0F4852941}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBED65A0-5AA2-4BE2-A253-02F0F4852941}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {429CA75C-C1AC-4366-B049-673BB0DF00E9}
+	EndGlobalSection
+EndGlobal
