@@ -1,0 +1,43 @@
+﻿<Window x:Class="PojemnikiListyWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PojemnikiListyWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800"
+        FontSize="20">
+    <StackPanel ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+        <ListBox Margin="5" Padding="5">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Margin" Value="5" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <TextBox Width="200" Text="TextBox" />
+            <TextBlock Width="200" Text="TextBlock" Background="LightGray" />
+            <Label Width="200" Content="Label" Background="Gray" />
+            <Slider Width="200" Background="DarkGray" />
+            <Button Width="200" Content="Button" />
+        </ListBox>
+        <ItemsControl Margin="5" Padding="5">
+            <TextBox Margin="5" Text="TextBox" />
+            <TextBlock Margin="5" Text="Textblock" Background="LightGray" />
+            <Label Margin="5" Content="Label" Background="Gray" />
+            <Slider Margin="5" Width="200" Background="DarkGray" />
+            <Button Margin="5" Content="Button" />
+        </ItemsControl>
+        <ComboBox Margin="5" Padding="5">
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Margin" Value="5" />
+                </Style>
+            </ComboBox.ItemContainerStyle>
+            <TextBox Text="TextBox" />
+            <TextBlock Text="TextBlock" Background="LightGray" />
+            <Label Content="Label" Background="Gray" />
+            <Slider Width="200" Background="DarkGray" />
+            <Button Content="Button" />
+        </ComboBox>
+    </StackPanel>
+</Window>

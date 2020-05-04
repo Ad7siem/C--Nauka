@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0FF12A26-598B-4BB4-89D1-4AEF21C10DAE}</ProjectGuid>
+    <ProjectGuid>{71C440DA-2DD6-4959-8F2E-901C9FF95A7C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>PojemnikiKontrolkiWPFScrollViewer</RootNamespace>
-    <AssemblyName>PojemnikiKontrolkiWPFScrollViewer</AssemblyName>
+    <RootNamespace>PojemnikiListySzablonyWPF</RootNamespace>
+    <AssemblyName>PojemnikiListySzablonyWPF</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -55,7 +55,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="RandomPanel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

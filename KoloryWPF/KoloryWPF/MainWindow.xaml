@@ -1,0 +1,26 @@
+﻿<Window x:Class="KoloryWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KoloryWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525"
+        KeyDown="Window_KeyDown"
+        Closed="Window_Closed">
+    <Grid>
+        <Rectangle x:Name="rectangle" Fill="#FFF4F4F5" Margin="10,10,10.4,83.8" Stroke="Black" />
+        <Slider x:Name="sliderR" 
+                Margin="10,0,10.4,60.8"  Height="18" VerticalAlignment="Bottom" 
+                Maximum="255"
+                ValueChanged="sliderRGB_ValueChanged" />
+        <Slider x:Name="sliderG" 
+                Margin="10,0,10.4,34.8" VerticalAlignment="Bottom" Height="18" 
+                Maximum="255"
+                ValueChanged="sliderRGB_ValueChanged" />
+        <Slider x:Name="sliderB" 
+                Margin="10,0,10.4,9.8" VerticalAlignment="Bottom" Height="18" 
+                Maximum="255"
+                ValueChanged="sliderRGB_ValueChanged" />
+    </Grid>
+</Window>
