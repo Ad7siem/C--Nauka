@@ -4,23 +4,57 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KoloryWPF"
+        xmlns:vm="clr-namespace:KoloryWPF.ModelWidoku"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525"
+        Title="MainWindow" Height="600" Width="800"
         KeyDown="Window_KeyDown"
         Closed="Window_Closed">
-    <Grid>
-        <Rectangle x:Name="rectangle" Fill="#FFF4F4F5" Margin="10,10,10.4,83.8" Stroke="Black" />
+    <Window.Resources>
+        <vm:EdycjaKoloru x:Key="edycjaKoloru" />
+        <local:ByteToDoubleConverter x:Key="konwersjaByteDouble" />
+        <local:ColorToSolidColorBrushConverter x:Key="konwersjaColorBrush" />
+        <local:SkladoweRGBToSolidColorBrushConverter x:Key="konwersjaRGBBrush" />
+        <local:SkladoweRGBDoubleToSolidColorBruchConverter x:Key="konwersjaRGBDoubleBrush" />
+    </Window.Resources>
+    <Window.DataContext>
+        <vm:EdycjaKoloru />
+    </Window.DataContext>
+    <Window.InputBindings>
+        <KeyBinding Key="R" Command="{Binding Resetuj}" />
+    </Window.InputBindings>
+    <Grid DataContext="{StaticResource edycjaKoloru}">
+        <Rectangle x:Name="rectangle" Margin="10,10,10,119" Stroke="Black">
+            <Rectangle.Fill>
+                <MultiBinding Mode="OneWay" Converter="{StaticResource konwersjaRGBDoubleBrush}">
+                    <Binding ElementName="sliderR" Path="Value" />
+                    <Binding ElementName="sliderG" Path="Value" />
+                    <Binding ElementName="sliderB" Path="Value" />
+                </MultiBinding>
+            </Rectangle.Fill>
+        </Rectangle>
         <Slider x:Name="sliderR" 
-                Margin="10,0,10.4,60.8"  Height="18" VerticalAlignment="Bottom" 
-                Maximum="255"
-                ValueChanged="sliderRGB_ValueChanged" />
+                Margin="10,0,40,90"  Height="18" 
+                VerticalAlignment="Bottom" Maximum="255"
+                Value="{Binding R, Mode=TwoWay, Converter={StaticResource konwersjaByteDouble}}" />
+        <TextBlock Margin="10,0,10,90" Height="18"
+                   VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                   Text="{Binding ElementName=sliderR, Path=Value}" />
         <Slider x:Name="sliderG" 
-                Margin="10,0,10.4,34.8" VerticalAlignment="Bottom" Height="18" 
-                Maximum="255"
-                ValueChanged="sliderRGB_ValueChanged" />
+                Margin="10,0,40,65" Height="18" 
+                VerticalAlignment="Bottom" Maximum="255"
+                Value="{Binding G, Mode=TwoWay, Converter={StaticResource konwersjaByteDouble}}" />
+        <TextBlock Margin="10,0,10,65" Height="18"
+                   VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                   Text="{Binding ElementName=sliderG, Path=Value}" />
         <Slider x:Name="sliderB" 
-                Margin="10,0,10.4,9.8" VerticalAlignment="Bottom" Height="18" 
-                Maximum="255"
-                ValueChanged="sliderRGB_ValueChanged" />
+                Margin="10,0,40,40" Height="18" 
+                 VerticalAlignment="Bottom" Maximum="255"
+                Value="{Binding B, Mode=TwoWay, Converter={StaticResource konwersjaByteDouble}}" />
+        <TextBlock Margin="10,0,10,40" Height="18"
+                   VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                   Text="{Binding ElementName=sliderB, Path=Value}" />
+        <Button Content="Resetuj" Height="25" Width="75"
+                VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,10"
+                Command="{Binding Resetuj}" />
     </Grid>
 </Window>
