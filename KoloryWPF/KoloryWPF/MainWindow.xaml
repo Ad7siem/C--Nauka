@@ -5,10 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KoloryWPF"
         xmlns:vm="clr-namespace:KoloryWPF.ModelWidoku"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800"
-        KeyDown="Window_KeyDown"
-        Closed="Window_Closed">
+        Title="MainWindow" Height="600" Width="800">
     <Window.Resources>
         <vm:EdycjaKoloru x:Key="edycjaKoloru" />
         <local:ByteToDoubleConverter x:Key="konwersjaByteDouble" />
@@ -20,8 +19,18 @@
         <vm:EdycjaKoloru />
     </Window.DataContext>
     <Window.InputBindings>
-        <KeyBinding Key="R" Command="{Binding Resetuj}" />
+        <KeyBinding Key="R" Modifiers="Ctrl" Command="{Binding Resetuj}" />
+        <MouseBinding Gesture="MiddleClick" Command="{Binding Resetuj}" />
     </Window.InputBindings>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding Zapisz}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <i:Interaction.Behaviors>
+        <local:ZamkniecieOknaPoNacisnieciuKlawisza Klawisz="Esc" />
+        <local:PrzyciskZamykajacyOkno x:Name="przyciskZamykajacyOkno" Przycisk="{Binding ElementName=przyciskZamknij}" />
+    </i:Interaction.Behaviors>
     <Grid DataContext="{StaticResource edycjaKoloru}">
         <Rectangle x:Name="rectangle" Margin="10,10,10,119" Stroke="Black">
             <Rectangle.Fill>
@@ -36,25 +45,27 @@
                 Margin="10,0,40,90"  Height="18" 
                 VerticalAlignment="Bottom" Maximum="255"
                 Value="{Binding R, Mode=TwoWay, Converter={StaticResource konwersjaByteDouble}}" />
-        <TextBlock Margin="10,0,10,90" Height="18"
+        <TextBox Margin="10,0,10,90" Height="18"
                    VerticalAlignment="Bottom" HorizontalAlignment="Right"
                    Text="{Binding ElementName=sliderR, Path=Value}" />
         <Slider x:Name="sliderG" 
                 Margin="10,0,40,65" Height="18" 
                 VerticalAlignment="Bottom" Maximum="255"
                 Value="{Binding G, Mode=TwoWay, Converter={StaticResource konwersjaByteDouble}}" />
-        <TextBlock Margin="10,0,10,65" Height="18"
+        <TextBox Margin="10,0,10,65" Height="18"
                    VerticalAlignment="Bottom" HorizontalAlignment="Right"
                    Text="{Binding ElementName=sliderG, Path=Value}" />
         <Slider x:Name="sliderB" 
                 Margin="10,0,40,40" Height="18" 
                  VerticalAlignment="Bottom" Maximum="255"
                 Value="{Binding B, Mode=TwoWay, Converter={StaticResource konwersjaByteDouble}}" />
-        <TextBlock Margin="10,0,10,40" Height="18"
+        <TextBox Margin="10,0,10,40" Height="18"
                    VerticalAlignment="Bottom" HorizontalAlignment="Right"
                    Text="{Binding ElementName=sliderB, Path=Value}" />
         <Button Content="Resetuj" Height="25" Width="75"
                 VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,10"
                 Command="{Binding Resetuj}" />
+        <Button x:Name="przyciskZamknij" Content="Zamknij" Height="25" Width="75"
+                VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="100,0,0,10" />
     </Grid>
 </Window>

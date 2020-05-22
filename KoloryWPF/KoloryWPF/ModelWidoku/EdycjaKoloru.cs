@@ -68,88 +68,102 @@ namespace KoloryWPF.ModelWidoku
             }
         }
 
-
-
-        public void Zapisz()
+        private ICommand zapiszCommand;
+        public ICommand Zapisz
         {
-            Ustawienia.Zapisz(kolor);
+            get
+            {
+                if (zapiszCommand == null)
+                    zapiszCommand = new RelayCommand(argument => { Ustawienia.Zapisz(kolor); });
+                return zapiszCommand;
+            }
         }
 
-        private ICommand resetujCommend;
-
+        private ICommand resetujCommand;
         public ICommand Resetuj
         {
             get
             {
-                if (resetujCommend == null) resetujCommend = new ResetujCommand(this);
-                return resetujCommend;
+                if(resetujCommand == null)
+                {
+                    resetujCommand = new RelayCommand(
+                        argument =>
+                        {
+                            R = 0;
+                            G = 0;
+                            B = 0;
+                        },
+                        argument => (R != 0) || (G != 0) || (B != 0)
+                        );
+                }
+                return resetujCommand;
             }
         }
     }
 
-    public class EdycjaKoloru2 : ObservedObject
-    {
-        public EdycjaKoloru2()
-        {
-            Kolor kolor = Ustawienia.Czytaj();
-            R = kolor.R;
-            G = kolor.G;
-            B = kolor.B;
-        }
+    //public class EdycjaKoloru2 : ObservedObject
+    //{
+    //    public EdycjaKoloru2()
+    //    {
+    //        Kolor kolor = Ustawienia.Czytaj();
+    //        R = kolor.R;
+    //        G = kolor.G;
+    //        B = kolor.B;
+    //    }
 
-        private byte r, g, b;
+    //    private byte r, g, b;
 
-        public byte R { get { return r; } set { r = value; onPropertyChanged(nameof(R), nameof(Color)); } }
-        public byte G { get { return g; } set { r = value; onPropertyChanged(nameof(G), nameof(Color)); } }
-        public byte B { get { return b; } set { r = value; onPropertyChanged(nameof(B), nameof(Color)); } }
+    //    public byte R { get { return r; } set { r = value; onPropertyChanged(nameof(R), nameof(Color)); } }
+    //    public byte G { get { return g; } set { r = value; onPropertyChanged(nameof(G), nameof(Color)); } }
+    //    public byte B { get { return b; } set { r = value; onPropertyChanged(nameof(B), nameof(Color)); } }
 
-        public Color Color
-        {
-            get
-            {
-                return Color.FromRgb(R, G, B);
-            }
-        }
+    //    public Color Color
+    //    {
+    //        get
+    //        {
+    //            return Color.FromRgb(R, G, B);
+    //        }
+    //    }
 
-        public void Zapisz()
-        {
-            Kolor kolor = new Kolor(R, G, B);
-            Ustawienia.Zapisz(kolor);
-        }
-    }
+    //    public void Zapisz()
+    //    {
+    //        Kolor kolor = new Kolor(R, G, B);
+    //        Ustawienia.Zapisz(kolor);
+    //    }
+    //}
 
-    public class EdycjaKoloru3 : ObservedObject
-    {
-        private readonly Kolor kolor = Ustawienia.Czytaj();
+    //public class EdycjaKoloru3 : ObservedObject
+    //{
+    //    private readonly Kolor kolor = Ustawienia.Czytaj();
 
-        public Kolor Kolor
-        {
-            get
-            {
-                return kolor;
-            }
-        }
+    //    public Kolor Kolor
+    //    {
+    //        get
+    //        {
+    //            return kolor;
+    //        }
+    //    }
 
-        public Color color
-        {
-            get
-            {
-                return Kolor.ToColor();
-            }
-        }
-        public void Zapisz()
-        {
-            Ustawienia.Zapisz(Kolor);
-        }
+    //    public Color color
+    //    {
+    //        get
+    //        {
+    //            return Kolor.ToColor();
+    //        }
+    //    }
+    //    public void Zapisz()
+    //    {
+    //        Ustawienia.Zapisz(Kolor);
+    //    }
 
-        //public EdycjaKoloru3()
-        //{
-        //    Kolor.PropertyChanged += (object sender, PropertyChangedEventArgs e) =>
-        //     {
-        //         onPropertyChanged(nameofColor);
-        //     };
-        //}
-    }
+    //    //public EdycjaKoloru3()
+    //    //{
+    //    //    Kolor.PropertyChanged += (object sender, PropertyChangedEventArgs e) =>
+    //    //     {
+    //    //         onPropertyChanged(nameofColor);
+    //    //     };
+    //    //}
+    //}
 
     static class Rozszerzenie
     {
